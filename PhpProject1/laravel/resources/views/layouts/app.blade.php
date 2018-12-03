@@ -23,9 +23,7 @@
                         <h3 class="page-title">
                             {{ $siteTitle }}
                         </h3>
-                        @endif
-
-                        <div class="mdl-cell mdl-cell--12-col">
+                        @endif                       
 
                             @if (Session::has('message'))
                             <div class="alert alert-info">
@@ -42,9 +40,7 @@
                             </div>
                             @endif
 
-                            @yield('content')
-
-                        </div>
+                            @yield('content')                       
 
                     </div>
                 </main>
