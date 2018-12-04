@@ -44,8 +44,8 @@ class CongressesController extends Controller
         
         $id_citta_sedes = \App\City::get()->pluck('name', 'id')->prepend(trans('global.app_please_select'), '');
         $id_prov_sedes = \App\Province::get()->pluck('nome', 'id')->prepend(trans('global.app_please_select'), '');
-
-        return view('admin.congresses.create', compact('id_citta_sedes', 'id_prov_sedes'));
+        $hotels = \App\Hotel::all();
+        return view('admin.congresses.create', compact('hotels','id_citta_sedes', 'id_prov_sedes'));
     }
 
     /**
@@ -59,6 +59,11 @@ class CongressesController extends Controller
         if (! Gate::allows('congress_create')) {
             return abort(401);
         }
+        
+        $input = $request->input();
+        
+        dd($input);
+        
         $request = $this->saveFiles($request);
         $congress = Congress::create($request->all());
 
@@ -66,9 +71,14 @@ class CongressesController extends Controller
 
         return redirect()->route('admin.congresses.index');
     }
+    
+    public function getRooms(Request $request){
+        $input = $request->input();        
+        
+        return $input;
+    }
 
-
-    /**
+        /**
      * Show the form for editing Congress.
      *
      * @param  int  $id

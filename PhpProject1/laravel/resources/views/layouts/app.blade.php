@@ -3,6 +3,8 @@
 
     <head>
         @include('partials.head')
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-multiselect/0.9.15/css/bootstrap-multiselect.css" />
+
         <style>
             ul#two-column {
                 columns: 2;
@@ -66,6 +68,7 @@
 
         @include('partials.javascripts')
     </body>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-multiselect/0.9.15/js/bootstrap-multiselect.js"></script>
     <script>
         $(document).ready(function () {
             $(".mdl-layout__drawer-button").click(function () {
