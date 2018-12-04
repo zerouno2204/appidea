@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
-@if($congress->isNotEmpty())
+@if(isset($congress))
 @foreach($congress as $item)
 <div class="mdl-cell mdl-cell--4-col">
     <div class="mdl-card">

@@ -1,15 +1,15 @@
 @extends('layouts.app')
 
 @section('content')
-    <h3 class="page-title">@lang('global.cities.title')</h3>
+<div class="mdl-card">
+  <div class="mdl-card__title mdl-card--border">
+  <h2 class="mdl-card__title-text">@lang('global.cities.title') @lang('global.app_create')</h2>
+  </div>
+  
+  <div class="mdl-card__supporting-text"> 
+    
     {!! Form::open(['method' => 'POST', 'route' => ['admin.cities.store']]) !!}
-
-    <div class="panel panel-default">
-        <div class="panel-heading">
-            @lang('global.app_create')
-        </div>
-        
-        <div class="panel-body">
+                    
             <div class="row">
                 <div class="col-xs-12 form-group">
                     {!! Form::label('name', trans('global.cities.fields.name').'', ['class' => 'control-label']) !!}
@@ -34,11 +34,11 @@
                     @endif
                 </div>
             </div>
-            
-        </div>
-    </div>
-
+ 
     {!! Form::submit(trans('global.app_save'), ['class' => 'btn btn-danger']) !!}
     {!! Form::close() !!}
+     </div>
+  
+</div>
 @stop
 

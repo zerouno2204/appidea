@@ -4,7 +4,19 @@
     <head>
         @include('partials.head')
         <style>
-           
+            ul#two-column {
+                columns: 2;
+                -webkit-columns: 2;
+                -moz-columns: 2;
+            }
+
+            .mdl-menu__outline.mdl-menu--bottom-right {
+                max-height: 300px;
+            }
+            ul.mdl-menu.mdl-menu--bottom-right.mdl-js-menu.mdl-js-ripple-effect.mdl-js-ripple-effect--ignore-events {
+                max-height: 300px !important;
+                overflow: auto;
+            }
         </style>
     </head>
 
@@ -25,22 +37,22 @@
                         </h3>
                         @endif                       
 
-                            @if (Session::has('message'))
-                            <div class="alert alert-info">
-                                <p>{{ Session::get('message') }}</p>
-                            </div>
-                            @endif
-                            @if ($errors->count() > 0)
-                            <div class="alert alert-danger">
-                                <ul class="list-unstyled">
-                                    @foreach($errors->all() as $error)
-                                    <li>{{ $error }}</li>
-                                    @endforeach
-                                </ul>
-                            </div>
-                            @endif
+                        @if (Session::has('message'))
+                        <div class="alert alert-info">
+                            <p>{{ Session::get('message') }}</p>
+                        </div>
+                        @endif
+                        @if ($errors->count() > 0)
+                        <div class="alert alert-danger">
+                            <ul class="list-unstyled">
+                                @foreach($errors->all() as $error)
+                                <li>{{ $error }}</li>
+                                @endforeach
+                            </ul>
+                        </div>
+                        @endif
 
-                            @yield('content')                       
+                        @yield('content')                       
 
                     </div>
                 </main>

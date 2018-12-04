@@ -51,7 +51,7 @@
         </span>         
         @endcan
 
-        @can('hotel_management_access')
+        @can('hotel_access')
         <span class="mdl-navigation__link mdl-color-text--grey-900" >
             <i class="mdl-color-text--black material-icons" role="presentation">hotel</i>@lang('global.hotels.title')
             <button id="menu-hotel"

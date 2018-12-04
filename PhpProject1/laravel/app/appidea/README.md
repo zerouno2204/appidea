@@ -1,2 +1,0 @@
-# appidea
-app idea
