@@ -243,12 +243,12 @@ _:-ms-input-placeholder, :root .demo-graph {
 
 @media(min-width: 1025px){
     .demo-drawer .demo-navigation{
-       /* height: 200%;*/
+        /* height: 200%;*/
     }
-    
-     .demo-card-wide.mdl-card {
-            width: 512px;
-        }
+
+    .demo-card-wide.mdl-card {
+        width: 512px;
+    }
 
 }
 
@@ -257,10 +257,14 @@ _:-ms-input-placeholder, :root .demo-graph {
         margin-left: 0;
         width: 100%;
     }
-    
+
     .demo-card-wide.mdl-card {
-            width: 100%;
-        }
+        width: 100%;
+    }
+
+    .mdl-card__supporting-text, .mdl-tabs.is-upgraded .mdl-tabs__panel.is-active {
+        overflow: auto;
+    }
 }
 
 @media(max-width: 420px){
