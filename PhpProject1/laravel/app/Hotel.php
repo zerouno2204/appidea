@@ -57,4 +57,8 @@ class Hotel extends Model
         return $this->belongsTo(Province::class, 'provincia_id');
     }
     
+    public function rooms(){
+        return $this->hasMany(Room::class, 'id_hotel_id');
+    }
+    
 }

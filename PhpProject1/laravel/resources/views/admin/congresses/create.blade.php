@@ -33,7 +33,7 @@
             </div>
         </div>
         <div class="mdl-grid">
-            <div class="mdl-cell mdl-cell--6-col-desktop">
+            <div class="mdl-cell mdl-cell--4-col-desktop">
                 {!! Form::label('data_inizio', trans('global.congress.fields.data-inizio').'', ['class' => 'control-label']) !!}
                 {!! Form::text('data_inizio', old('data_inizio'), ['class' => 'form-control date', 'placeholder' => '']) !!}
                 <p class="help-block"></p>
@@ -44,7 +44,7 @@
                 @endif
             </div>
 
-            <div class="mdl-cell mdl-cell--6-col-desktop">
+            <div class="mdl-cell mdl-cell--4-col-desktop">
                 {!! Form::label('data_fine', trans('global.congress.fields.data-fine').'', ['class' => 'control-label']) !!}
                 {!! Form::text('data_fine', old('data_fine'), ['class' => 'form-control date', 'placeholder' => '']) !!}
                 <p class="help-block"></p>
@@ -54,10 +54,25 @@
                 </p>
                 @endif
             </div>
+
+            <div class="mdl-cell mdl-cell--4-col-desktop">
+               <label class="control-label">@lang('global.speakers-congress.fields.id-speaker')</label>
+                <select name='realtori[]' multiple class="form-control select2">
+                    @foreach($relatori as $row)
+                    <option value="{{$row->id}}" @if(old('relatori[]')) selected @endif >{{$row->nome}} {{$row->cognome}}</option>
+                    @endforeach
+                </select>
+                <p class="help-block"></p>
+                @if($errors->has('relatori'))
+                <p class="help-block">
+                    {{ $errors->first('relatori') }}
+                </p>
+                @endif
+            </div>
         </div>
 
         <div class="mdl-grid">
-            <div class="mdl-cell mdl-cell--6-col">
+            <div class="mdl-cell mdl-cell--6-col-desktop">
                 <div class="form-group">
                     <label class="control-label">@lang('global.hotels.title')</label>
                     <select name="hotels[]" id="hotel-select" multiple class="form-control">
@@ -68,6 +83,9 @@
                         @endif
                     </select>
                 </div>
+            </div>
+            <div class="mdl-cell mdl-cell--6-col-desktop">
+                <div class="mdl-grid"  id="room-column"></div>
             </div>
         </div>
 
@@ -225,21 +243,47 @@ $('.editor').each(function () {
             buttonWidth: '400px;',
             onChange: function (option, checked) {
                 var selected = this.$select.val();
-                if (selected.lenght > 0) {
+                //console.log(selected.length);
+                var i = 0;
+                if (selected.length > 0) {
+
                     $.ajax({
-                        url:"{{url('/admin/get-rooms')}}",
+                        url: "{{url('/admin/ajax-get-rooms')}}",
                         method: "POST",
-                        data: {selected: selected},
+                        data: {_token: '{{csrf_token()}}', selected: selected},
                         success: function (data)
                         {
                             console.log(data);
+                            $('#room-column').html('');
+                            $.each(data, function (data, item) {
+                                $('#room-column').append("<div class='mdl-cell mdl-cell--4-col-desktop'>" +
+                                        "<p>" + item.nome + "<p>" +
+                                        "<input type='hidden'  value='" + item.id + "'></div>" +
+                                        "<div class='mdl-cell mdl-cell--8-col-desktop'><div class='mdl-grid' id='hotel-" + i + "'></div></div>");
+
+                                $.each(item.rooms, function (item, rooms) {
+                                    console.log(rooms);
+                                    $('#hotel-' + i).append("<div class='mdl-cell--6-col-desktop form-check'>" +
+                                            "<input type='checkbox' value='" + rooms.id + "' name='rooms[]' class='form-check-input' id='exampleCheck1'>" +
+                                            "<label style='float: right; max-width: 90px;' class='form-check-label' for='exampleCheck1'> Tipo: " + rooms.descrizione + " Prezzo: " + rooms.prezzo + "€ Posti: " + rooms.p_letto + "</label>" +
+                                            "</div>" +
+                                            "<div class='mdl-cell--2-col-desktop'></div>" +
+                                            "<div class='mdl-cell--4-col-desktop form-group'>" +
+                                            "<input type='number' name='qty-" + rooms.id + "' class='form-control' value='0' min='0'>" +
+                                            "</div>");
+                                });
+                                i++
+                            });
+
                         },
-                        error: function(data){
+                        error: function (data) {
                             console.log(data);
                         }
-                        
+
                     });
+
                 }
+
             }
         });
     });

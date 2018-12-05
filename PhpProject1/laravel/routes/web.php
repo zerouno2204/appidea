@@ -83,7 +83,7 @@ Route::group(['middleware' => ['auth'], 'prefix' => 'admin', 'as' => 'admin.'], 
 
        /* AJAX Call */
     
-    Route::post('/get-rooms', 'Admin\CongressesController@getRooms');
+    Route::post('/ajax-get-rooms', 'Admin\CongressesController@getRooms');
  
     Route::get('language/{lang}', function ($lang) {
         return redirect()->back()->withCookie(cookie()->forever('language', $lang));
