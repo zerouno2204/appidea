@@ -19,6 +19,7 @@ $this->post('password/reset', 'Auth\ResetPasswordController@reset')->name('auth.
 Route::get('/home', 'HomeController@index');
 Route::get('/customer/congress/{id}', 'Admin\CongressesController@showEvent');
 
+
 Route::group(['middleware' => ['auth'], 'prefix' => 'admin', 'as' => 'admin.'], function () {
     
     Route::get('/calendar', 'Admin\SystemCalendarController@index'); 

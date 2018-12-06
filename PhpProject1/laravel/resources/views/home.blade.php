@@ -15,7 +15,7 @@
             {!! $item->descrizione !!}
         </div>
         <div class="mdl-card__actions">
-            <a href="{{route('admin.congresses.show',[$item->id])}}" class="mdl-button mdl-js-button mdl-button--raised mdl-button--accent" >Vedi</a>
+            <a href="{{url('/customer/congress/'.$item->id)}}" class="mdl-button mdl-js-button mdl-button--raised mdl-button--accent" >Vedi</a>
         </div>
     </div>
 </div>

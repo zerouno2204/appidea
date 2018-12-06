@@ -238,6 +238,23 @@ class CongressesController extends Controller {
 
         return view('admin.congresses.show', compact('congress_rooms','congress', 'congress_entries', 'congress_hotels', 'speakers_congresses', 'days', 'codes', 'registrations'));
     }
+    
+    public function showEvent($id){
+        
+        $id_citta_sedes = \App\City::get()->pluck('name', 'id')->prepend(trans('global.app_please_select'), '');
+        $id_prov_sedes = \App\Province::get()->pluck('nome', 'id')->prepend(trans('global.app_please_select'), '');
+        $congress_entries = \App\CongressEntry::where('id_congress_id', $id)->get();
+        $congress_hotels = \App\CongressHotel::where('id_congress_id', $id)->get();
+        $speakers_congresses = \App\SpeakersCongress::where('id_congress_id', $id)->get();
+        $days = \App\Day::where('id_congresso_id', $id)->get();
+        $codes = \App\Code::where('id_congress_id', $id)->get();
+        $registrations = \App\Registration::where('id_congress_id', $id)->get();
+        $congress_rooms = Congress_Rooms::with('room.id_hotel')->where('id_congress', $id)->get();
+
+        $congress = Congress::findOrFail($id);
+
+        return view('customer.congress.show', compact('congress_rooms','congress', 'congress_entries', 'congress_hotels', 'speakers_congresses', 'days', 'codes', 'registrations'));
+    }
 
     /**
      * Remove Congress from storage.
