@@ -14,7 +14,7 @@ use Illuminate\Database\Eloquent\Model;
 */
 class Code extends Model
 {
-    protected $fillable = ['code', 'qrcode', 'id_congress_id', 'id_user_id'];
+    protected $fillable = ['code', 'qrcode', 'id_congress_id', 'id_user_id', 'sponsor'];
     protected $hidden = [];
     
     

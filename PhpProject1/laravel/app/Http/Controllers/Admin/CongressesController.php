@@ -232,7 +232,7 @@ class CongressesController extends Controller {
         $days = \App\Day::where('id_congresso_id', $id)->get();
         $codes = \App\Code::where('id_congress_id', $id)->get();
         $registrations = \App\Registration::where('id_congress_id', $id)->get();
-        $congress_rooms = Congress_Rooms::where('id_congress_id', $id)->get();
+        $congress_rooms = Congress_Rooms::with('room.id_hotel')->where('id_congress', $id)->get();
 
         $congress = Congress::findOrFail($id);
 

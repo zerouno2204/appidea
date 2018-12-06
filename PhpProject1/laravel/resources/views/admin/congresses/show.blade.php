@@ -71,7 +71,8 @@
             <div class="mdl-tabs mdl-js-tabs mdl-js-ripple-effect">
                 <div class="mdl-tabs__tab-bar">                
                     <a href="#congress_entries" class="mdl-tabs__tab is-active">Iscrizioni</a>   
-                    <a href="#congress_hotel" class="mdl-tabs__tab">Hotel</a>         
+                    <a href="#congress_hotel" class="mdl-tabs__tab">Hotel</a>
+                    <a href="#congress_rooms"class="mdl-tabs__tab" >Camere</a>
                     <a href="#speakers_congress" class="mdl-tabs__tab">Relatori</a>
                     <a href="#day" class="mdl-tabs__tab">Giorni</a>                                          
                     <a href="#codes" class="mdl-tabs__tab">Codici</a>                                    
@@ -341,8 +342,6 @@
                                 <th class="mdl-data-table__cell--non-numeric">@lang('global.registrations.fields.data-scadenza')</th>
                                 <th class="mdl-data-table__cell--non-numeric">@lang('global.registrations.fields.id-tipo-doc')</th>
                                 <th class="mdl-data-table__cell--non-numeric">@lang('global.registrations.fields.path-img-doc')</th>
-                                <th class="mdl-data-table__cell--non-numeric">@lang('global.registrations.fields.note')</th>
-                                <th class="mdl-data-table__cell--non-numeric">@lang('global.registrations.fields.registrationscol')</th>
                                 <th class="mdl-data-table__cell--non-numeric">&nbsp;</th>
 
                             </tr>
@@ -358,8 +357,6 @@
                                 <td field-key='data_scadenza'>{{ $registration->data_scadenza }}</td>
                                 <td field-key='id_tipo_doc'>{{ $registration->id_tipo_doc }}</td>
                                 <td field-key='path_img_doc'>{{ $registration->path_img_doc }}</td>
-                                <td field-key='note'>{{ $registration->note }}</td>
-                                <td field-key='registrationscol'>{{ $registration->registrationscol }}</td>
                                 <td>
                                     @can('registration_view')
                                     <a href="{{ route('admin.registrations.show',[$registration->id]) }}" class="btn btn-xs btn-primary">@lang('global.app_view')</a>
@@ -379,6 +376,44 @@
                                 </td>
 
                             </tr>
+                            @endforeach
+                            @else
+                            <tr>
+                                <td colspan="19">@lang('global.app_no_entries_in_table')</td>
+                            </tr>
+                            @endif
+                        </tbody>
+                    </table>
+                </div>
+                <div class="mdl-tabs__panel" id="congress_rooms">
+                    <table class="mdl-data-table mdl-js-data-table mdl-shadow--2dp">
+                        <thead>
+                            <tr>                               
+                                <th class="mdl-data-table__cell--non-numeric">Camera</th>
+                                <th class="mdl-data-table__cell--non-numeric">Hotel</th>
+                                <th class="mdl-data-table__cell--non-numeric">Quantità</th>
+                                <th class="mdl-data-table__cell--non-numeric"></th>
+
+                            </tr>
+                        </thead>
+
+                        <tbody>
+                            @if (count($congress_rooms) > 0)
+                            @foreach( $congress_rooms as $room)
+                                <td>{{$room->nome}}</td>
+                                <td>{{$room->id_hotel->nome}}</td>
+                                <td>{{$room->qty}}</td>
+                                <td>
+                                @can('congress_delete')
+                                    {!! Form::open(array(
+                                    'style' => 'display: inline-block;',
+                                    'method' => 'POST',
+                                    'onsubmit' => "return confirm('".trans("global.app_are_you_sure")."');",
+                                    'route' => ['admin.congress_room.destroy', $congress_rooms->id])) !!}
+                                    {!! Form::submit(trans('global.app_delete'), array('class' => 'btn btn-xs btn-danger')) !!}
+                                    {!! Form::close() !!}
+                                @endcan
+                                </td>
                             @endforeach
                             @else
                             <tr>

@@ -2,19 +2,28 @@
 <!-- Left side column. contains the sidebar -->
 <div class="demo-drawer mdl-layout__drawer mdl-color--grey-600 mdl-color-text--grey-50">
     <header class="demo-drawer-header">
+        @if(Auth::user())
         <img src="http://www.spazioeventicastiglione.com/wp-content/uploads/2018/11/icona_SPAZIO_EVENTI.png" class="demo-avatar">
         <div class="demo-avatar-dropdown">
             <span>{{Auth::user()->name}} {{Auth::user()->surname}}</span>
             <div class="mdl-layout-spacer"></div>
 
         </div>
+        @else
+        <img src="" class="demo-avatar">
+        <div class="demo-avatar-dropdown">
+            <span>App Idea</span>
+            <div class="mdl-layout-spacer"></div>
+        </div>
+        @endif
     </header>
     <nav class="demo-navigation mdl-navigation mdl-color--white">
         <a class="mdl-navigation__link mdl-color-text--grey-900" href="{{url('/')}}">
-            <i class="mdl-color-text--grey-900 material-icons" role="presentation">home</i>Home
+            <i class="mdl-color-text--black material-icons" role="presentation">home</i>Home
         </a>
+        @if(Auth::user())
         <a class="mdl-navigation__link mdl-color-text--grey-900" href="{{url('admin/calendar')}}">
-            <i class="mdl-color-text--grey-900 material-icons" role="presentation">calendar_today</i>Calendario
+            <i class="mdl-color-text--black material-icons" role="presentation">calendar_today</i>Calendario
         </a>
         @can('user_management_access')
         <span class="mdl-navigation__link mdl-color-text--grey-900" >
@@ -99,6 +108,14 @@
                     <i class="mdl-color-text--black material-icons">exit_to_app</i>  @lang('global.app_logout')
                 </a>
             </span>
+        @endif
+        @if(empty(Auth::user()->id))
+        <span class="mdl-navigation__link mdl-color-text--grey-900">
+                <a class="mdl-color-text--grey-900" href="{{url('/login')}}">
+                    <i class="mdl-color-text--black material-icons">lock</i>  Login
+                </a>
+        </span>
+        @endif
     </nav>
 
     <!--- Menu User Panel --->

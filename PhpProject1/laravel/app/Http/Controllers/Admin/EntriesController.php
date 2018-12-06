@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Gate;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\StoreEntriesRequest;
 use App\Http\Requests\Admin\UpdateEntriesRequest;
+use App\CongressEntry;
 
 class EntriesController extends Controller
 {
@@ -38,7 +39,10 @@ class EntriesController extends Controller
         if (! Gate::allows('entry_create')) {
             return abort(401);
         }
-        return view('admin.entries.create');
+        
+        $congresses = \App\Congress::all();
+        
+        return view('admin.entries.create', compact('congresses'));
     }
 
     /**
@@ -52,8 +56,13 @@ class EntriesController extends Controller
         if (! Gate::allows('entry_create')) {
             return abort(401);
         }
+        $input = $request->input();
         $entry = Entry::create($request->all());
-
+        
+        $congress_entry = new CongressEntry();
+        $congress_entry->id_entry_id = $entry->id;
+        $congress_entry->id_congress_id = $input['congresso'];
+        $congress_entry->save();
 
 
         return redirect()->route('admin.entries.index');
@@ -71,9 +80,12 @@ class EntriesController extends Controller
         if (! Gate::allows('entry_edit')) {
             return abort(401);
         }
+        
+        $congresses = \App\Congress::all();
+        $congress_entry = CongressEntry::where('id_entry_id', $id)->first();
         $entry = Entry::findOrFail($id);
 
-        return view('admin.entries.edit', compact('entry'));
+        return view('admin.entries.edit', compact('entry', 'congresses', 'congress_entry'));
     }
 
     /**

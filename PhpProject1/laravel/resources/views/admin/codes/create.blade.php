@@ -1,14 +1,13 @@
 @extends('layouts.app')
 
 @section('content')
-    <h3 class="page-title">@lang('global.codes.title')</h3>
-    {!! Form::open(['method' => 'POST', 'route' => ['admin.codes.store']]) !!}
+<div class="mdl-card">
+    <div class="mdl-card__title mdl-card--border">
+        <h2 class="mdl-card__title-text">@lang('global.codes.title') @lang('global.app_create')</h2>
+    </div>
+    <div class="mdl-card__supporting-text">
+        {!! Form::open(['method' => 'POST', 'route' => ['admin.codes.store']]) !!}
 
-    <div class="panel panel-default">
-        <div class="panel-heading">
-            @lang('global.app_create')
-        </div>
-        
         <div class="panel-body">
             <div class="row">
                 <div class="col-xs-12 form-group">
@@ -16,9 +15,9 @@
                     {!! Form::text('code', old('code'), ['class' => 'form-control', 'placeholder' => '']) !!}
                     <p class="help-block"></p>
                     @if($errors->has('code'))
-                        <p class="help-block">
-                            {{ $errors->first('code') }}
-                        </p>
+                    <p class="help-block">
+                        {{ $errors->first('code') }}
+                    </p>
                     @endif
                 </div>
             </div>
@@ -28,9 +27,9 @@
                     {!! Form::text('qrcode', old('qrcode'), ['class' => 'form-control', 'placeholder' => '']) !!}
                     <p class="help-block"></p>
                     @if($errors->has('qrcode'))
-                        <p class="help-block">
-                            {{ $errors->first('qrcode') }}
-                        </p>
+                    <p class="help-block">
+                        {{ $errors->first('qrcode') }}
+                    </p>
                     @endif
                 </div>
             </div>
@@ -40,29 +39,30 @@
                     {!! Form::select('id_congress_id', $id_congresses, old('id_congress_id'), ['class' => 'form-control select2']) !!}
                     <p class="help-block"></p>
                     @if($errors->has('id_congress_id'))
-                        <p class="help-block">
-                            {{ $errors->first('id_congress_id') }}
-                        </p>
+                    <p class="help-block">
+                        {{ $errors->first('id_congress_id') }}
+                    </p>
                     @endif
                 </div>
             </div>
             <div class="row">
                 <div class="col-xs-12 form-group">
-                    {!! Form::label('id_user_id', trans('global.codes.fields.id-user').'', ['class' => 'control-label']) !!}
-                    {!! Form::select('id_user_id', $id_users, old('id_user_id'), ['class' => 'form-control select2']) !!}
+                    {!! Form::label('sponsor', trans('global.codes.fields.sponsor').'', ['class' => 'control-label']) !!}
+                    {!! Form::text('sponsor', old('sponsor'), ['class' => 'form-control', 'placeholder' => '']) !!}
                     <p class="help-block"></p>
-                    @if($errors->has('id_user_id'))
-                        <p class="help-block">
-                            {{ $errors->first('id_user_id') }}
-                        </p>
+                    @if($errors->has('sponsor'))
+                    <p class="help-block">
+                        {{ $errors->first('sponsor') }}
+                    </p>
                     @endif
                 </div>
             </div>
-            
-        </div>
-    </div>
 
-    {!! Form::submit(trans('global.app_save'), ['class' => 'btn btn-danger']) !!}
-    {!! Form::close() !!}
+        </div>
+
+        {!! Form::submit(trans('global.app_save'), ['class' => 'btn btn-danger']) !!}
+        {!! Form::close() !!}
+    </div>
+</div>
 @stop
 

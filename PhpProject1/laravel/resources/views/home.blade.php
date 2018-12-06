@@ -12,10 +12,10 @@
             <img src="{{$item->img}}" >
         </div>
         <div class="mdl-card__supporting-text">
-            {{$item->descrizione}}
+            {!! $item->descrizione !!}
         </div>
         <div class="mdl-card__actions">
-            <a href="{{route('admin.congress.show',[$item->id])}}" class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored" >Vedi</a>
+            <a href="{{route('admin.congresses.show',[$item->id])}}" class="mdl-button mdl-js-button mdl-button--raised mdl-button--accent" >Vedi</a>
         </div>
     </div>
 </div>

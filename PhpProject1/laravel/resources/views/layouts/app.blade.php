@@ -19,6 +19,12 @@
                 max-height: 300px !important;
                 overflow: auto;
             }
+            .mdl-card{
+                width: 100%;
+            }
+            .mdl-tabs__panel{
+                padding-top: 20px;
+            }
         </style>
     </head>
 

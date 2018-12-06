@@ -1,16 +1,13 @@
 @extends('layouts.app')
 
 @section('content')
-    <h3 class="page-title">@lang('global.speakers.title')</h3>
-    
+    <div class="mdl-card" style="width: 100%;">
+  <div class="mdl-card__title">
+   <h2 class=mdl-card__title-text">@lang('global.speakers.title') @lang('global.app_edit')</h2>
+  </div>
+  <div class="mdl-card__supporting-text">
     {!! Form::model($speaker, ['method' => 'PUT', 'route' => ['admin.speakers.update', $speaker->id], 'files' => true,]) !!}
 
-    <div class="panel panel-default">
-        <div class="panel-heading">
-            @lang('global.app_edit')
-        </div>
-
-        <div class="panel-body">
             <div class="row">
                 <div class="col-xs-12 form-group">
                     {!! Form::label('nome', trans('global.speakers.fields.nome').'', ['class' => 'control-label']) !!}
@@ -39,9 +36,6 @@
                 <div class="col-xs-12 form-group">
                     {!! Form::label('img_path', trans('global.speakers.fields.img-path').'', ['class' => 'control-label']) !!}
                     {!! Form::hidden('img_path', old('img_path')) !!}
-                    @if ($speaker->img_path)
-                        <a href="{{ asset(env('UPLOAD_PATH').'/' . $speaker->img_path) }}" target="_blank">Download file</a>
-                    @endif
                     {!! Form::file('img_path', ['class' => 'form-control']) !!}
                     {!! Form::hidden('img_path_max_size', 20) !!}
                     <p class="help-block"></p>
@@ -92,9 +86,6 @@
                 <div class="col-xs-12 form-group">
                     {!! Form::label('curriculuum', trans('global.speakers.fields.curriculuum').'', ['class' => 'control-label']) !!}
                     {!! Form::hidden('curriculuum', old('curriculuum')) !!}
-                    @if ($speaker->curriculuum)
-                        <a href="{{ asset(env('UPLOAD_PATH').'/' . $speaker->curriculuum) }}" target="_blank">Download file</a>
-                    @endif
                     {!! Form::file('curriculuum', ['class' => 'form-control']) !!}
                     {!! Form::hidden('curriculuum_max_size', 5) !!}
                     <p class="help-block"></p>
@@ -106,11 +97,12 @@
                 </div>
             </div>
             
-        </div>
-    </div>
 
-    {!! Form::submit(trans('global.app_update'), ['class' => 'btn btn-danger']) !!}
+   {!! Form::submit(trans('global.app_update'), ['class' => 'btn btn-danger']) !!}
     {!! Form::close() !!}
+  
+  </div>
+</div>
 @stop
 
 @section('javascript')
