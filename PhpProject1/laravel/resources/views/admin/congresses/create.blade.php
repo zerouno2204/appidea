@@ -111,32 +111,7 @@
                     {{ $errors->first('ind_sede') }}
                 </p>
                 @endif
-            </div>
-
-            <div class="mdl-cell mdl-cell--6-col-desktop">
-                {!! Form::label('lat', trans('global.congress.fields.lat').'', ['class' => 'control-label']) !!}
-                {!! Form::text('lat', old('lat'), ['class' => 'form-control', 'placeholder' => '']) !!}
-                <p class="help-block"></p>
-                @if($errors->has('lat'))
-                <p class="help-block">
-                    {{ $errors->first('lat') }}
-                </p>
-                @endif
-            </div>
-        </div>
-        <div class="mdl-grid">
-            <div class="mdl-cell mdl-cell--6-col-desktop">
-                {!! Form::label('lng', trans('global.congress.fields.lng').'', ['class' => 'control-label']) !!}
-                {!! Form::text('lng', old('lng'), ['class' => 'form-control', 'placeholder' => '']) !!}
-                <p class="help-block"></p>
-                @if($errors->has('lng'))
-                <p class="help-block">
-                    {{ $errors->first('lng') }}
-                </p>
-                @endif
-            </div>
-
-
+            </div>  
             <div class="mdl-cell mdl-cell--6-col-desktop">
                 {!! Form::label('cap_sede', trans('global.congress.fields.cap-sede').'', ['class' => 'control-label']) !!}
                 {!! Form::text('cap_sede', old('cap_sede'), ['class' => 'form-control', 'placeholder' => '']) !!}

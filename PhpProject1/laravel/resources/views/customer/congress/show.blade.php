@@ -23,22 +23,27 @@
             <li class="list-group-item"><strong>@lang('global.congress.fields.data-fine')</strong><br>
                 <p style="margin: 10px 10px 0;">{{$congress->data_fine}}</p>
             </li>
-            <li class="list-group-item"><div id="map"></div></li>
+            <li class="list-group-item">
+                <a href="{{url('/admin/customer/registration/'.$congress->id)}}" class="mdl-button mdl-js-button mdl-button--primary" style="width: 100%; border: 1px solid;">Iscriviti</a>
+            </li>
+            <li class="list-group-item">
+                <div id="map"></div>
+            </li>
 
-        </ul>
-
-        <a href="#" class="btn btn-primary">Iscriviti</a>
-
+        </ul>       
     </div>
 </div>
 <script>
     // Initialize and add the map
     function initMap() {
         // The location of Uluru
-        var uluru = {lat: -25.344, lng: 131.036};
+        var congress = <?php echo json_encode($congress) ?>;
+        //console.log(congress.lat);
+        var uluru = {lat: parseFloat(congress.lat), lng: parseFloat(congress.lng)};
         // The map, centered at Uluru
         var map = new google.maps.Map(
-                document.getElementById('map'), {zoom: 4, center: uluru});
+                document.getElementById('map'), {zoom: 18, center: uluru, disableDefaultUI: true});
+        
         // The marker, positioned at Uluru
         var marker = new google.maps.Marker({position: uluru, map: map});
     }

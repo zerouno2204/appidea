@@ -17,6 +17,8 @@
         </div>
         @endif
     </header>
+
+    @if(Auth::user()->role_id == 1 || Auth::user()->role_id == 3)
     <nav class="demo-navigation mdl-navigation mdl-color--white">
         <a class="mdl-navigation__link mdl-color-text--grey-900" href="{{url('/')}}">
             <i class="mdl-color-text--black material-icons" role="presentation">home</i>Home
@@ -33,6 +35,12 @@
                 <i class="material-icons">keyboard_arrow_right</i>
             </button>  
         </span>         
+        @endcan
+        @can('document_type_access')
+        <a class="mdl-navigation__link mdl-color-text--black" href="{{ route('admin.document_types.index') }}">
+            <i class="mdl-color-text--black material-icons">description</i>
+            @lang('global.document-type.title')
+        </a>
         @endcan
         @can('city_access')           
         <span class="mdl-navigation__link mdl-color-text--grey-900" >
@@ -69,7 +77,7 @@
             </button>  
         </span>         
         @endcan
-        
+
         @can('faq_management_access')
         <span class="mdl-navigation__link mdl-color-text--grey-900" >
             <i class="mdl-color-text--black material-icons" role="presentation">question_answer</i>@lang('global.faq-management.title')
@@ -79,44 +87,45 @@
             </button>  
         </span>  
         @endcan
-        
+
         @php ($unread = App\MessengerTopic::countUnread())
-            <span class="mdl-navigation__link mdl-color-text--grey-900 {{ $request->segment(2) == 'messenger' ? 'active' : '' }} {{ ($unread > 0 ? 'unread' : '') }}">
-                <a class="mdl-color-text--grey-900" href="{{ route('admin.messenger.index') }}">
-                    <i class="mdl-color-text--black material-icons">message</i>Messages
-                    @if($unread > 0)
-                        {{ ($unread > 0 ? '('.$unread.')' : '') }}
-                    @endif
-                </a>
-            </span>
-            <style>
-                .page-sidebar-menu .unread * {
-                    font-weight:bold !important;
-                }
-            </style>
-        
+        <span class="mdl-navigation__link mdl-color-text--grey-900 {{ $request->segment(2) == 'messenger' ? 'active' : '' }} {{ ($unread > 0 ? 'unread' : '') }}">
+            <a class="mdl-color-text--grey-900" href="{{ route('admin.messenger.index') }}">
+                <i class="mdl-color-text--black material-icons">message</i>Messages
+                @if($unread > 0)
+                {{ ($unread > 0 ? '('.$unread.')' : '') }}
+                @endif
+            </a>
+        </span>
+        <style>
+            .page-sidebar-menu .unread * {
+                font-weight:bold !important;
+            }
+        </style>
+
         <div class="mdl-layout-spacer"></div>
-         <span class="mdl-navigation__link mdl-color-text--grey-900 {{ $request->segment(1) == 'change_password' ? 'active' : '' }}">
-                 <i class="mdl-color-text--black material-icons">vpn_key</i>
-                <a class="mdl-color-text--grey-900" href="{{ route('auth.change_password') }}">
-                   @lang('global.app_change_password')
-                </a>
-            </span>
+        <span class="mdl-navigation__link mdl-color-text--grey-900 {{ $request->segment(1) == 'change_password' ? 'active' : '' }}">
+            <i class="mdl-color-text--black material-icons">vpn_key</i>
+            <a class="mdl-color-text--grey-900" href="{{ route('auth.change_password') }}">
+                @lang('global.app_change_password')
+            </a>
+        </span>
 
         <span class="mdl-navigation__link mdl-color-text--grey-900">
-                <a class="mdl-color-text--grey-900" href="#logout" onclick="$('#logout').submit();">
-                    <i class="mdl-color-text--black material-icons">exit_to_app</i>  @lang('global.app_logout')
-                </a>
-            </span>
+            <a class="mdl-color-text--grey-900" href="#logout" onclick="$('#logout').submit();">
+                <i class="mdl-color-text--black material-icons">exit_to_app</i>  @lang('global.app_logout')
+            </a>
+        </span>
         @endif
         @if(empty(Auth::user()->id))
         <span class="mdl-navigation__link mdl-color-text--grey-900">
-                <a class="mdl-color-text--grey-900" href="{{url('/login')}}">
-                    <i class="mdl-color-text--black material-icons">lock</i>  Login
-                </a>
+            <a class="mdl-color-text--grey-900" href="{{url('/login')}}">
+                <i class="mdl-color-text--black material-icons">lock</i>  Login
+            </a>
         </span>
         @endif
     </nav>
+
 
     <!--- Menu User Panel --->
 
@@ -188,13 +197,13 @@
         </li>
         @endcan        
         @can('speaker_access')
-            <li class="mdl-menu__item">
-                <a href="{{ route('admin.speakers.index') }}">
-                    <i class="fa fa-tags"></i>
-                    <span>@lang('global.speakers.title')</span>
-                </a>
-            </li>
-            @endcan
+        <li class="mdl-menu__item">
+            <a href="{{ route('admin.speakers.index') }}">
+                <i class="fa fa-tags"></i>
+                <span>@lang('global.speakers.title')</span>
+            </a>
+        </li>
+        @endcan
 
         @can('entry_access')
         <li class="mdl-menu__item">
@@ -214,28 +223,28 @@
         </li>
         @endcan
         @can('day_access')
-            <li class="mdl-menu__item">
-                <a href="{{ route('admin.days.index') }}">
-                    <i class="fa fa-gears"></i>
-                    <span>@lang('global.day.title')</span>
-                </a>
-            </li>@endcan
-            
-            @can('hall_access')
-            <li class="mdl-menu__item">
-                <a href="{{ route('admin.halls.index') }}">
-                    <i class="fa fa-gears"></i>
-                    <span>@lang('global.hall.title')</span>
-                </a>
-            </li>@endcan
-            
-            @can('event_access')
-            <li class="mdl-menu__item">
-                <a href="{{ route('admin.events.index') }}">
-                    <i class="fa fa-gears"></i>
-                    <span>@lang('global.event.title')</span>
-                </a>
-            </li>@endcan
+        <li class="mdl-menu__item">
+            <a href="{{ route('admin.days.index') }}">
+                <i class="fa fa-gears"></i>
+                <span>@lang('global.day.title')</span>
+            </a>
+        </li>@endcan
+
+        @can('hall_access')
+        <li class="mdl-menu__item">
+            <a href="{{ route('admin.halls.index') }}">
+                <i class="fa fa-gears"></i>
+                <span>@lang('global.hall.title')</span>
+            </a>
+        </li>@endcan
+
+        @can('event_access')
+        <li class="mdl-menu__item">
+            <a href="{{ route('admin.events.index') }}">
+                <i class="fa fa-gears"></i>
+                <span>@lang('global.event.title')</span>
+            </a>
+        </li>@endcan
     </ul>
 
     <!--- Menu Hotel and Rooms --->
@@ -258,27 +267,31 @@
         </li>
         @endcan
     </ul>
-    
-    <!-- FAQ system --->
-    
-    <ul class="mdl-menu mdl-menu--bottom-right mdl-js-menu mdl-js-ripple-effect" for="menu-faq">
-                    @can('faq_category_access')
-                    <li class="mdl-menu__item">
-                        <a href="{{ route('admin.faq_categories.index') }}">
-                            <i class="fa fa-briefcase"></i>
-                            <span>@lang('global.faq-categories.title')</span>
-                        </a>
-                    </li>@endcan
-                    
-                    @can('faq_question_access')
-                    <li class="mdl-menu__item">
-                        <a href="{{ route('admin.faq_questions.index') }}">
-                            <i class="fa fa-question"></i>
-                            <span>@lang('global.faq-questions.title')</span>
-                        </a>
-                    </li>@endcan
-                    
-                </ul>
 
+    <!-- FAQ system --->
+
+    <ul class="mdl-menu mdl-menu--bottom-right mdl-js-menu mdl-js-ripple-effect" for="menu-faq">
+        @can('faq_category_access')
+        <li class="mdl-menu__item">
+            <a href="{{ route('admin.faq_categories.index') }}">
+                <i class="fa fa-briefcase"></i>
+                <span>@lang('global.faq-categories.title')</span>
+            </a>
+        </li>@endcan
+
+        @can('faq_question_access')
+        <li class="mdl-menu__item">
+            <a href="{{ route('admin.faq_questions.index') }}">
+                <i class="fa fa-question"></i>
+                <span>@lang('global.faq-questions.title')</span>
+            </a>
+        </li>@endcan
+
+    </ul>
+    @else
+
+    @include('customer-nav.blade.php')
+
+    @endif
 </div>
 

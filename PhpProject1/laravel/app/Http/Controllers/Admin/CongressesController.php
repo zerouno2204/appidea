@@ -118,6 +118,29 @@ class CongressesController extends Controller {
 
         return response()->json($array);
     }
+    
+    public function getCongressRooms(Request $request) {
+        $input = $request->input();
+        
+        $i = 0;
+        $hotel_id = $input['hotel_id'];
+        $congress_id = $input['congress_id'];
+        $array = [];
+        $rooms= Room::where('id_hotel_id', $hotel_id)->get();
+        
+        foreach ($rooms as $room){            
+            $congressRoom = Congress_Rooms::where('id_room', $room->id)->where('id_congress', $congress_id)->first();
+            
+            if(!empty($congressRoom)){
+                $array[$i] = $room;
+                
+                $i = $i + 1;
+            }
+            
+        }
+           
+        return response()->json($array);
+    }
 
     /**
      * Show the form for editing Congress.
@@ -199,12 +222,10 @@ class CongressesController extends Controller {
             }
         }
 
-        
-
         if (isset($input['relatori[]'])) {
-            
+
             $relatori = $input['relatori[]'];
-            
+
             foreach ($relatori as $relatore) {
 
                 $old_relation_relatore = SpeakersCongress::where('id_congress_id', $congress->id)->where('id_speaker_id', $relatore)->first();
@@ -248,9 +269,7 @@ class CongressesController extends Controller {
     }
 
     public function showEvent($id) {
-
-        $id_citta_sedes = \App\City::get()->pluck('name', 'id')->prepend(trans('global.app_please_select'), '');
-        $id_prov_sedes = \App\Province::get()->pluck('nome', 'id')->prepend(trans('global.app_please_select'), '');
+        
         $congress_entries = \App\CongressEntry::where('id_congress_id', $id)->get();
         $congress_hotels = \App\CongressHotel::where('id_congress_id', $id)->get();
         $speakers_congresses = \App\SpeakersCongress::where('id_congress_id', $id)->get();
@@ -260,6 +279,19 @@ class CongressesController extends Controller {
         $congress_rooms = Congress_Rooms::with('room.id_hotel')->where('id_congress', $id)->get();
 
         $congress = Congress::findOrFail($id);
+        
+        $citta = \App\City::where('id',$congress->id_citta_sede_id)->first();
+        $prov = \App\Province::where('id',$congress->id_prov_sede_id)->first();
+           
+        if (empty($congress->lat) || empty($congress->lng)) {
+            $prepAddr = str_replace(' ', '+', $congress->ind_sede.'+'.$citta->name.'+'.$prov->slug);
+            $geocode = file_get_contents('https://maps.google.com/maps/api/geocode/json?address=' . $prepAddr . '&key=AIzaSyCp20T5LN8Yk8dW4TaLj6KvTpdSF8L223I');
+            $output = json_decode($geocode);
+            //dd($output);
+            $congress->lat = $output->results[0]->geometry->location->lat;
+            $congress->lng = $output->results[0]->geometry->location->lng;
+            $congress->save();
+        }
 
         return view('customer.congress.show', compact('congress_rooms', 'congress', 'congress_entries', 'congress_hotels', 'speakers_congresses', 'days', 'codes', 'registrations'));
     }

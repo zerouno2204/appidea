@@ -3,6 +3,8 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 use Carbon\Carbon;
+use Spatie\MediaLibrary\HasMedia\HasMediaTrait;
+use Spatie\MediaLibrary\HasMedia\HasMedia;
 
 /**
  * Class Registration
@@ -23,9 +25,10 @@ use Carbon\Carbon;
  * @property string $id_user
  * @property string $id_camera
 */
-class Registration extends Model
+class Registration extends Model implements HasMedia
 {
-    protected $fillable = ['nome_documento', 'luogo_rilascio', 'data_emissione', 'data_scadenza', 'id_tipo_doc', 'path_img_doc', 'note', 'registrationscol', 'id_entry_id', 'id_congress_id', 'id_speaker_id', 'id_hotel_id', 'id_user_id', 'id_camera_id'];
+    use HasMediaTrait;
+    protected $fillable = ['nome_documento', 'luogo_rilascio', 'data_emissione', 'data_scadenza', 'note', 'codice', 'id_entry_id', 'id_congress_id', 'id_speaker_id', 'id_hotel_id', 'id_user_id', 'id_camera_id', 'id_tipo_doc', 'path_img_doc'];
     protected $hidden = [];
     
     
@@ -42,9 +45,11 @@ class Registration extends Model
      */
     public function setDataEmissioneAttribute($input)
     {
-        if ($input != null && $input != '') {
-            $this->attributes['data_emissione'] = Carbon::createFromFormat(config('app.date_format'), $input)->format('Y-m-d');
-        } else {
+        if ($input != null && $input != '') 
+            {
+            $this->attributes['data_emissione'] = Carbon::createFromFormat(config('app.date_format'), $input)->toDateString();
+        } 
+        else {
             $this->attributes['data_emissione'] = null;
         }
     }
@@ -59,9 +64,11 @@ class Registration extends Model
     {
         $zeroDate = str_replace(['Y', 'm', 'd'], ['0000', '00', '00'], config('app.date_format'));
 
-        if ($input != $zeroDate && $input != null) {
+        if ($input != $zeroDate && $input != null) 
+            {
             return Carbon::createFromFormat('Y-m-d', $input)->format(config('app.date_format'));
-        } else {
+        } 
+        else {
             return '';
         }
     }
@@ -72,9 +79,11 @@ class Registration extends Model
      */
     public function setDataScadenzaAttribute($input)
     {
-        if ($input != null && $input != '') {
-            $this->attributes['data_scadenza'] = Carbon::createFromFormat(config('app.date_format'), $input)->format('Y-m-d');
-        } else {
+        if ($input != null && $input != '') 
+            {
+            $this->attributes['data_scadenza'] = Carbon::createFromFormat(config('app.date_format'), $input)->toDateString();
+        } 
+        else {
             $this->attributes['data_scadenza'] = null;
         }
     }
@@ -89,9 +98,11 @@ class Registration extends Model
     {
         $zeroDate = str_replace(['Y', 'm', 'd'], ['0000', '00', '00'], config('app.date_format'));
 
-        if ($input != $zeroDate && $input != null) {
+        if ($input != $zeroDate && $input != null) 
+            {
             return Carbon::createFromFormat('Y-m-d', $input)->format(config('app.date_format'));
-        } else {
+        } 
+        else {
             return '';
         }
     }

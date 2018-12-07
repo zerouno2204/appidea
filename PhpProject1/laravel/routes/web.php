@@ -84,6 +84,10 @@ Route::group(['middleware' => ['auth'], 'prefix' => 'admin', 'as' => 'admin.'], 
     
     Route::post('/congress_room/delete', ['uses' => 'Admin\CongressesController@deleteCongressRoom', 'as' => 'congress_room.destroy' ]);
 
+    /* Registration routes */
+    
+    Route::get('/customer/registration/{congress_id}', 'Admin\RegistrationsController@registration');
+    
     /* Messengers routes */
     Route::model('messenger', 'App\MessengerTopic');
     Route::get('messenger/inbox', 'Admin\MessengerController@inbox')->name('messenger.inbox');
@@ -93,6 +97,7 @@ Route::group(['middleware' => ['auth'], 'prefix' => 'admin', 'as' => 'admin.'], 
        /* AJAX Call */
     
     Route::post('/ajax-get-rooms', 'Admin\CongressesController@getRooms');
+    Route::post('/ajax-registration-rooms', 'Admin\CongressesController@getCongressRooms');
  
     Route::get('language/{lang}', function ($lang) {
         return redirect()->back()->withCookie(cookie()->forever('language', $lang));
