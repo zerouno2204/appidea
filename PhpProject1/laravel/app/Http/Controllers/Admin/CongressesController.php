@@ -161,52 +161,60 @@ class CongressesController extends Controller {
 
         $input = $request->input();
 
-        foreach ($input['hotels'] as $id_hotel) {
-            $old_relation = CongressHotel::where('id_hotel_id', $id_hotel)->where('id_congress_id', $congress->id)->first();
+        if (isset($input['hotels'])) {
+            foreach ($input['hotels'] as $id_hotel) {
+                $old_relation = CongressHotel::where('id_hotel_id', $id_hotel)->where('id_congress_id', $congress->id)->first();
 
-            if (empty($old_relation)) {
-                $hotel = Hotel::find($id_hotel);
-                if (!empty($hotel)) {
-                    $congress_hotel = new CongressHotel();
-                    $congress_hotel->id_congress_id = $congress->id;
-                    $congress_hotel->id_hotel_id = $hotel->id;
-                    $congress_hotel->save();
+                if (empty($old_relation)) {
+                    $hotel = Hotel::find($id_hotel);
+                    if (!empty($hotel)) {
+                        $congress_hotel = new CongressHotel();
+                        $congress_hotel->id_congress_id = $congress->id;
+                        $congress_hotel->id_hotel_id = $hotel->id;
+                        $congress_hotel->save();
+                    }
+                }
+            }
+
+
+            foreach ($input['rooms'] as $id_room) {
+
+                $old_relation_room = Congress_Rooms::where('id_room', $id_room)->where('id_congress', $congress->id)->first();
+
+                if (empty($old_relation_room)) {
+                    $room = Room::find($id_room);
+                    if (!empty($room) && $input['qty-' . $room->id] > 0) {
+                        $congress_room = new Congress_Rooms();
+                        $congress_room->id_congress = $congress->id;
+                        $congress_room->id_room = $room->id;
+                        $congress_room->qty = $input['qty-' . $room->id];
+                        $congress_room->save();
+                    }
+                } else {
+                    if (!empty($room) && $input['qty-' . $room->id] > 0) {
+                        $old_relation_room->qty = $input['qty-' . $room->id];
+                        $old_relation_room->save();
+                    }
                 }
             }
         }
 
-        foreach ($input['rooms'] as $id_room) {
+        
+
+        if (isset($input['relatori[]'])) {
             
-            $old_relation_room = Congress_Rooms::where('id_room', $id_room)->where('id_congress', $congress->id)->first();
+            $relatori = $input['relatori[]'];
+            
+            foreach ($relatori as $relatore) {
 
-            if (empty($old_relation_room)) {
-                $room = Room::find($id_room);
-                if (!empty($room) && $input['qty-' . $room->id] > 0) {
-                    $congress_room = new Congress_Rooms();
-                    $congress_room->id_congress = $congress->id;
-                    $congress_room->id_room = $room->id;
-                    $congress_room->qty = $input['qty-' . $room->id];
-                    $congress_room->save();
+                $old_relation_relatore = SpeakersCongress::where('id_congress_id', $congress->id)->where('id_speaker_id', $relatore)->first();
+
+                if (empty($old_relation_relatore)) {
+                    $relatoreCongress = new SpeakersCongress();
+                    $relatoreCongress->id_congress_id = $congress->id;
+                    $relatoreCongress->id_speaker_id = $relatore;
+                    $relatoreCongress->save();
                 }
-            }else{
-                if (!empty($room) && $input['qty-' . $room->id] > 0) {
-                    $old_relation_room->qty = $input['qty-' . $room->id];
-                    $old_relation_room->save();
-                }
-            }
-        }
-
-        $relatori = $input['relatori[]'];
-
-        foreach ($relatori as $relatore) {
-
-            $old_relation_relatore = SpeakersCongress::where('id_congress_id', $congress->id)->where('id_speaker_id', $relatore)->first();
-
-            if (empty($old_relation_relatore)) {
-                $relatoreCongress = new SpeakersCongress();
-                $relatoreCongress->id_congress_id = $congress->id;
-                $relatoreCongress->id_speaker_id = $relatore;
-                $relatoreCongress->save();
             }
         }
 
@@ -236,11 +244,11 @@ class CongressesController extends Controller {
 
         $congress = Congress::findOrFail($id);
 
-        return view('admin.congresses.show', compact('congress_rooms','congress', 'congress_entries', 'congress_hotels', 'speakers_congresses', 'days', 'codes', 'registrations'));
+        return view('admin.congresses.show', compact('congress_rooms', 'congress', 'congress_entries', 'congress_hotels', 'speakers_congresses', 'days', 'codes', 'registrations'));
     }
-    
-    public function showEvent($id){
-        
+
+    public function showEvent($id) {
+
         $id_citta_sedes = \App\City::get()->pluck('name', 'id')->prepend(trans('global.app_please_select'), '');
         $id_prov_sedes = \App\Province::get()->pluck('nome', 'id')->prepend(trans('global.app_please_select'), '');
         $congress_entries = \App\CongressEntry::where('id_congress_id', $id)->get();
@@ -253,7 +261,7 @@ class CongressesController extends Controller {
 
         $congress = Congress::findOrFail($id);
 
-        return view('customer.congress.show', compact('congress_rooms','congress', 'congress_entries', 'congress_hotels', 'speakers_congresses', 'days', 'codes', 'registrations'));
+        return view('customer.congress.show', compact('congress_rooms', 'congress', 'congress_entries', 'congress_hotels', 'speakers_congresses', 'days', 'codes', 'registrations'));
     }
 
     /**

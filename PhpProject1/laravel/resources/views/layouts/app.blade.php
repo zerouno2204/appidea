@@ -25,6 +25,10 @@
             .mdl-tabs__panel{
                 padding-top: 20px;
             }
+            #map {
+                height: 400px;  /* The height is 400 pixels */
+                width: 100%;  /* The width is the width of the web page */
+            }
         </style>
     </head>
 
@@ -76,15 +80,15 @@
     </body>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-multiselect/0.9.15/js/bootstrap-multiselect.js"></script>
     <script>
-        $(document).ready(function () {
-            $(".mdl-layout__drawer-button").click(function () {
-                $(".mdl-layout__drawer").addClass('is-visible');
-                $(".mdl-layout__obfuscator").addClass('is-visible');
-            });
-            $(".mdl-layout__obfuscator").click(function () {
-                $(".mdl-layout__drawer").removeClass('is-visible');
-                $(".mdl-layout__obfuscator").removeClass('is-visible');
-            });
+    $(document).ready(function () {
+        $(".mdl-layout__drawer-button").click(function () {
+            $(".mdl-layout__drawer").addClass('is-visible');
+            $(".mdl-layout__obfuscator").addClass('is-visible');
         });
+        $(".mdl-layout__obfuscator").click(function () {
+            $(".mdl-layout__drawer").removeClass('is-visible');
+            $(".mdl-layout__obfuscator").removeClass('is-visible');
+        });
+    });
     </script>
 </html>
