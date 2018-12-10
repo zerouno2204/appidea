@@ -27,6 +27,18 @@ class HotelsController extends Controller
 
         return view('admin.hotels.index', compact('hotels'));
     }
+    
+    public function hotelsCongress($id)
+    {
+       
+                $hotels = Hotel::whereIn('id', function($q) use ($id){
+                    $q->select('id_hotel_id')
+                            ->from('congress_hotels')
+                            ->where('id_congress_id', $id);
+                })->get();
+
+        return view('customer.hotel.index', compact('hotels'));
+    }
 
     /**
      * Show the form for creating new Hotel.

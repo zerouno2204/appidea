@@ -40,7 +40,7 @@ class UsersController extends Controller
         }
         
         $roles = \App\Role::get()->pluck('title', 'id');
-
+        
 
         return view('admin.users.create', compact('roles'));
     }
@@ -58,7 +58,8 @@ class UsersController extends Controller
         }
         $user = User::create($request->all());
         $user->role()->sync(array_filter((array)$request->input('role')));
-
+        $user->role_id = $request->input('role');
+        $user->save();
 
 
         return redirect()->route('admin.users.index');
@@ -100,7 +101,8 @@ class UsersController extends Controller
         $user = User::findOrFail($id);
         $user->update($request->all());
         $user->role()->sync(array_filter((array)$request->input('role')));
-
+        $user->role_id = $request->input('role');
+        $user->save();
 
 
         return redirect()->route('admin.users.index');

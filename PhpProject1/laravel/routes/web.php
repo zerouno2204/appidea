@@ -80,9 +80,18 @@ Route::group(['middleware' => ['auth'], 'prefix' => 'admin', 'as' => 'admin.'], 
     Route::post('/spatie/media/upload', 'Admin\SpatieMediaController@create')->name('media.upload');
     Route::post('/spatie/media/remove', 'Admin\SpatieMediaController@destroy')->name('media.remove');
    
+    /* Congress routes */
+    Route::get('/customer-index-congress', 'Admin\CongressesController@customerIndex');
     
-    /* Congress Room routes */
+    /* Hotel routes */
+    Route::get('/congress-hotels/{id}', 'Admin\HotelsController@hotelsCongress');
+    Route::get('/congress-hotels-show/{id}', 'Admin\HotelsController@hotelsCongress');
     
+    /* Speaker routes */
+    Route::get('/speaker-congress/{id}', 'Admin\SpeakerCongressesController@speakersCongress');
+    Route::get('/speaker-congress-show/{id}', 'Admin\SpeakerCongressesController@speakersCongress');
+    
+    /* Congress Room routes */    
     Route::post('/congress_room/delete', ['uses' => 'Admin\CongressesController@deleteCongressRoom', 'as' => 'congress_room.destroy' ]);
 
     /* Registration routes */

@@ -22,10 +22,12 @@
     @if(Auth::user())
     @if(Auth::user()->role_id == 1 || Auth::user()->role_id == 3)
         @include('partials.admin-nav')
-    @else
+    @elseif(Auth::user()->role_id != 6)
 
         @include('partials.customer-nav')
 
+    @else
+        @include('partials.companies-nav')
     @endif
     @else
     <nav class="demo-navigation mdl-navigation mdl-color--white">

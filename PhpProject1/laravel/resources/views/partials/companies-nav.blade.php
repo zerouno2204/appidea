@@ -13,59 +13,16 @@
             <span>@lang('global.registrations.title')</span>
         </a>
     </span>
+
     
     <span class="mdl-navigation__link mdl-color-text--grey-900" >
-        <a href="{{url('/admin/customer-index-congress')}}">
+        <a href="{{ url('/admin/customer-index-congress') }}">
             <i class="mdl-color-text--black material-icons" role="presentation">business</i>
             @lang('global.congress.title')
         </a>
-    </span>
+    </span>    
+
     
-    @if(isset($congress))   
-
-    @can('speaker_access')
-    <span class="mdl-navigation__link mdl-color-text--grey-900" >
-        <a href="{{url('/admin/speaker-congress/'.$congress->id)}}">
-            <i class="mdl-color-text--black material-icons" role="presentation">people</i>
-            @lang('global.speakers.title')
-        </a>
-    </span>
-    @endcan
-
-    @can('hotel_access')
-    <span class="mdl-navigation__link mdl-color-text--grey-900" >
-        <a href="{{url('/admin/congress-hotels/'.$congress->id)}}">
-            <i class="mdl-color-text--black material-icons" role="presentation">hotel</i>@lang('global.hotels.title')
-        </a>
-    </span>          
-    @endcan
-    @endif
-
-    @can('faq_management_access')
-    <span class="mdl-navigation__link mdl-color-text--grey-900" >
-        <i class="mdl-color-text--black material-icons" role="presentation">question_answer</i>@lang('global.faq-management.title')
-        <button id="menu-faq"
-                class="mdl-button mdl-js-button mdl-button--icon">
-            <i class="material-icons">keyboard_arrow_right</i>
-        </button>  
-    </span>  
-    @endcan
-
-    @php ($unread = App\MessengerTopic::countUnread())
-    <span class="mdl-navigation__link mdl-color-text--grey-900 {{ $request->segment(2) == 'messenger' ? 'active' : '' }} {{ ($unread > 0 ? 'unread' : '') }}">
-        <a class="mdl-color-text--grey-900" href="{{ route('admin.messenger.index') }}">
-            <i class="mdl-color-text--black material-icons">message</i>Messages
-            @if($unread > 0)
-            {{ ($unread > 0 ? '('.$unread.')' : '') }}
-            @endif
-        </a>
-    </span>
-    <style>
-        .page-sidebar-menu .unread * {
-            font-weight:bold !important;
-        }
-    </style>
-
     <div class="mdl-layout-spacer"></div>
     <span class="mdl-navigation__link mdl-color-text--grey-900 {{ $request->segment(1) == 'change_password' ? 'active' : '' }}">
         <i class="mdl-color-text--black material-icons">vpn_key</i>

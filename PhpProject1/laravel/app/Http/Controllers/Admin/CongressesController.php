@@ -14,6 +14,7 @@ use App\Room;
 use App\Congress_Rooms;
 use App\CongressHotel;
 use App\SpeakersCongress;
+use Illuminate\Support\Facades\Auth;
 
 class CongressesController extends Controller {
 
@@ -33,6 +34,32 @@ class CongressesController extends Controller {
         $congresses = Congress::all();
 
         return view('admin.congresses.index', compact('congresses'));
+    }
+    
+    public function customerIndex(){
+        
+        $user_id = Auth::user()->id;
+        
+        $iscrizioni = 0;
+        
+        if(Auth::user()->role_id != 6){
+            $congresses = Congress::whereIn('id', function($q) use ($user_id){
+                $q->select('id_congress_id')
+                        ->from('registrations')
+                        ->where('id_user_id', $user_id);
+            })->get();
+        }else{
+            $congresses = Congress::whereIn('id', function($q) use ($user_id){
+                $q->select('id_congress_id')
+                        ->from('registrations')
+                        ->where('sponsor', $user_id);
+            })->get();
+            
+            $iscrizioni = \App\Registration::where('sponsor', $user_id)->count();
+        }
+        
+
+        return view('customer.congress.index', compact('congresses', 'iscrizioni'));
     }
 
     /**
@@ -270,6 +297,7 @@ class CongressesController extends Controller {
 
     public function showEvent($id) {
         
+        $tot = 0;
         $congress_entries = \App\CongressEntry::where('id_congress_id', $id)->get();
         $congress_hotels = \App\CongressHotel::where('id_congress_id', $id)->get();
         $speakers_congresses = \App\SpeakersCongress::where('id_congress_id', $id)->get();
@@ -282,6 +310,17 @@ class CongressesController extends Controller {
         
         $citta = \App\City::where('id',$congress->id_citta_sede_id)->first();
         $prov = \App\Province::where('id',$congress->id_prov_sede_id)->first();
+        
+        if( Auth::user()->role_id == 6 ){
+            $iscrizioni = \App\Registration::where('sponsor', $user_id)->where('id_congress_id', $id)->count();
+            
+            foreach ($congress_rooms as $row){
+                $tot = $tot + $congress_rooms->room->prezzo;
+            }
+            
+            return view('customer.congress.show', compact('tot','iscrizioni','congress_rooms', 'congress', 'congress_entries', 'congress_hotels', 'speakers_congresses', 'days', 'codes', 'registrations'));
+
+        }
            
         if (empty($congress->lat) || empty($congress->lng)) {
             $prepAddr = str_replace(' ', '+', $congress->ind_sede.'+'.$citta->name.'+'.$prov->slug);

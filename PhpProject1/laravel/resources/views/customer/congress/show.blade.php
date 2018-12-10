@@ -4,7 +4,7 @@
 
 <div class="mdl-grid">
     <h2>{{$congress->nome}}</h2>
-    <div class="mdl-cell mdl-cell--12-        col-phone mdl-cell--8-col-desktop">
+    <div class="mdl-cell mdl-cell--12-col-phone mdl-cell--8-col-desktop">
         @if($congress->img)
         <img src="{{ asset('img/'. $congress->img) }}" style="display: block; width: 100%;">
         @endif
@@ -26,10 +26,18 @@
             <li class="list-group-item">
                 <a href="{{url('/admin/customer/registration/'.$congress->id)}}" class="mdl-button mdl-js-button mdl-button--primary" style="width: 100%; border: 1px solid;">Iscriviti</a>
             </li>
+            @if(Auth::user()->role_id != 6)
             <li class="list-group-item">
                 <div id="map"></div>
             </li>
-
+            @else
+            <li class="list-group-item">
+                <p>Totale iscritti al congresso: {{$iscrizioni}}</p>
+            </li>
+            <li class="list-group-item">
+                <p>Totale spesa per camere: {{$tot}}€</p>
+            </li>
+            @endif
         </ul>       
     </div>
 </div>

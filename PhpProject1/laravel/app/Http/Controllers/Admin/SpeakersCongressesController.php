@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Gate;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\StoreSpeakersCongressesRequest;
 use App\Http\Requests\Admin\UpdateSpeakersCongressesRequest;
+use App\Speaker;
 
 class SpeakersCongressesController extends Controller
 {
@@ -26,6 +27,18 @@ class SpeakersCongressesController extends Controller
                 $speakers_congresses = SpeakersCongress::all();
 
         return view('admin.speakers_congresses.index', compact('speakers_congresses'));
+    }
+    
+    public function speakersCongress($id)
+    {
+        
+                $speakers = Speaker::whereIn('id', function($q) use ($id){
+                    $q->select('id_speaker_id')
+                            ->from('speakers_congresses')
+                            ->where('id_congress_id', $id);
+                })->get();
+
+        return view('customer.spakers.index', compact('speakers'));
     }
 
     /**

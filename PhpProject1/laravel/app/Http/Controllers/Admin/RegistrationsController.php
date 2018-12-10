@@ -177,8 +177,8 @@ class RegistrationsController extends Controller {
             $m->from('info@ideacongress.it', 'App Idea');
 
             $m->to($user->email, $user->name)->subject('Registrazione Effettuata');
-            $m->cc('', '' = null);
-            $m->cc('', '' = null);
+            //$m->cc('', '' = null);
+            //$m->cc('', '' = null);
         });
         
     }
