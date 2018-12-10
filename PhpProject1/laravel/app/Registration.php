@@ -28,7 +28,7 @@ use Spatie\MediaLibrary\HasMedia\HasMedia;
 class Registration extends Model implements HasMedia
 {
     use HasMediaTrait;
-    protected $fillable = ['nome_documento', 'luogo_rilascio', 'data_emissione', 'data_scadenza', 'note', 'codice', 'id_entry_id', 'id_congress_id', 'id_speaker_id', 'id_hotel_id', 'id_user_id', 'id_camera_id', 'id_tipo_doc', 'path_img_doc'];
+    protected $fillable = ['nome_documento', 'luogo_rilascio', 'data_emissione', 'data_scadenza', 'note', 'id_entry_id', 'id_congress_id', 'id_speaker_id', 'id_hotel_id', 'id_user_id', 'id_camera_id', 'id_tipo_doc'];
     protected $hidden = [];
     
     

@@ -8,18 +8,18 @@
             <div class="list-group">
                 @forelse($topics as $topic)
                     <div class="row list-group-item">
-                        <div class="col-xs-4 col-md-4">
+                        <div class="col-sm-4">
                             <a href="{{ route('admin.messenger.show', [$topic->id]) }}" class="{{$topic->unread()?'unread':false}}">
                                 {{ $topic->otherPerson()->email }}
                             </a>
                         </div>
-                        <div class="col-xs-5 col-md-5">
+                        <div class="col-sm-5">
                             <a href="{{ route('admin.messenger.show', [$topic->id]) }}" class="{{$topic->unread()?'unread':false}}">
                                 {{ $topic->subject }}
                             </a>
                         </div>
-                        <div class="col-xs-2 text-right">{{ $topic->sent_at->diffForHumans() }}</div>
-                        <div class="col-xs-1 text-center">
+                        <div class="col-sm-2 text-right">{{ $topic->sent_at->diffForHumans() }}</div>
+                        <div class="col-sm-1 text-center">
                             {!! Form::open(array(
                                     'style' => 'display: inline-block;',
                                     'method' => 'DELETE',
@@ -31,7 +31,9 @@
                     </div>
                 @empty
                     <div class="row list-group-item">
-                        You have no messages.
+                        <div class="col-sm-12">
+                             You have no messages.
+                        </div>                       
                     </div>
                 @endforelse
             </div>

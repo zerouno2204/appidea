@@ -3,7 +3,7 @@
 @section('content')
 <style>
     .demo-card-wide.mdl-card {
-        width: 512px;
+        width: 100%;
     }
     .demo-card-wide > .mdl-card__title {
         color: #262626;

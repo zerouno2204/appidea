@@ -79,13 +79,15 @@ Route::group(['middleware' => ['auth'], 'prefix' => 'admin', 'as' => 'admin.'], 
     Route::delete('events_perma_del/{id}', ['uses' => 'Admin\EventsController@perma_del', 'as' => 'events.perma_del']);
     Route::post('/spatie/media/upload', 'Admin\SpatieMediaController@create')->name('media.upload');
     Route::post('/spatie/media/remove', 'Admin\SpatieMediaController@destroy')->name('media.remove');
+   
     
     /* Congress Room routes */
     
     Route::post('/congress_room/delete', ['uses' => 'Admin\CongressesController@deleteCongressRoom', 'as' => 'congress_room.destroy' ]);
 
     /* Registration routes */
-    
+    Route::get('/customer-registration-show/{id}', 'Admin\RegistrationsController@customerShow');
+    Route::get('/customer-registration-index', 'Admin\RegistrationsController@customerIndex');
     Route::get('/customer/registration/{congress_id}', 'Admin\RegistrationsController@registration');
     
     /* Messengers routes */
@@ -98,6 +100,7 @@ Route::group(['middleware' => ['auth'], 'prefix' => 'admin', 'as' => 'admin.'], 
     
     Route::post('/ajax-get-rooms', 'Admin\CongressesController@getRooms');
     Route::post('/ajax-registration-rooms', 'Admin\CongressesController@getCongressRooms');
+    Route::post('/ajax-check-code', ['uses' => 'Admin\RegistrationsController@checkCode'])->name('checkCode');
  
     Route::get('language/{lang}', function ($lang) {
         return redirect()->back()->withCookie(cookie()->forever('language', $lang));

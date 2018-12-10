@@ -398,18 +398,18 @@
                         </thead>
 
                         <tbody>
-                            @if (count($congress_rooms) > 0)
-                            @foreach( $congress_rooms as $room)
-                                <td>{{$room->nome}}</td>
-                                <td>{{$room->id_hotel->nome}}</td>
-                                <td>{{$room->qty}}</td>
+                            @if (!empty($congress_rooms))
+                            @foreach( $congress_rooms as $congress_room)
+                                <td>{{$congress_room->room->nome}}</td>
+                                <td>{{$congress_room->room->id_hotel->nome}}</td>
+                                <td>{{$congress_room->qty}}</td>
                                 <td>
                                 @can('congress_delete')
                                     {!! Form::open(array(
                                     'style' => 'display: inline-block;',
                                     'method' => 'POST',
                                     'onsubmit' => "return confirm('".trans("global.app_are_you_sure")."');",
-                                    'route' => ['admin.congress_room.destroy', $congress_rooms->id])) !!}
+                                    'route' => ['admin.congress_room.destroy', $congress_room->id])) !!}
                                     {!! Form::submit(trans('global.app_delete'), array('class' => 'btn btn-xs btn-danger')) !!}
                                     {!! Form::close() !!}
                                 @endcan

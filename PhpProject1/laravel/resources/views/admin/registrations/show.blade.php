@@ -17,7 +17,6 @@
                 <th>@lang('global.registrations.fields.data-emissione')</th>
                 <th>@lang('global.registrations.fields.data-scadenza')</th>
                 <th>@lang('global.registrations.fields.id-tipo-doc')</th>
-                <th>@lang('global.registrations.fields.path-img-doc')</th>
             </tr>
             <tr>
                 <td field-key='nome_documento'>{{ $registration->nome_documento }}</td>
@@ -25,12 +24,20 @@
                 <td field-key='data_emissione'>{{ $registration->data_emissione }}</td>   
                 <td field-key='data_scadenza'>{{ $registration->data_scadenza }}</td>
                 <td field-key='id_tipo_doc'>{{ $registration->id_tipo_doc }}</td>
-                <td field-key='path_img_doc'>{{ $registration->path_img_doc }}</td>  
             </tr>
             
         </table>
-        <div>
-            {{ $registration->note }}
+        <div class="row">
+            <div class="col-sm-8">
+                {{ $registration->note }}
+            </div>
+            <div class="col-sm-4 img-row">
+                <div class="column">
+                @foreach($images as $image)
+                <img src="{{ asset('image/'. $image->nome) }}">
+                @endforeach
+                </div>
+            </div>
         </div>
     </div>
     <div class="mdl-card__actions">

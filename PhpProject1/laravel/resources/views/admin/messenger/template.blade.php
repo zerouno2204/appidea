@@ -7,7 +7,7 @@
     <div class="row" style="margin-top:15px;">
 
         {{--Sidebar--}}
-        <div class="col-xs-3">
+        <div class="col-sm-3">
             <a href="{{ route('admin.messenger.create') }}" class="btn btn-primary btn-group-justified">New message</a>
 
             <div class="list-group" style="margin-top:8px;">
@@ -23,7 +23,7 @@
 
 
         {{--Main content--}}
-        <div class="col-xs-9">
+        <div class="col-sm-9">
             @yield('messenger-content')
         </div>
     </div>
