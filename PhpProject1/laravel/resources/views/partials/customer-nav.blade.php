@@ -7,38 +7,28 @@
         <i class="mdl-color-text--black material-icons" role="presentation">calendar_today</i>Calendario
     </a>
 
-    <span class="mdl-navigation__link mdl-color-text--grey-900" >
-        <a href="{{ url('admin/customer-registration-index') }}">
-            <i class="fa fa-tags"></i>
-            <span>@lang('global.registrations.title')</span>
-        </a>
-    </span>
-    
-    <span class="mdl-navigation__link mdl-color-text--grey-900" >
-        <a href="{{url('/admin/customer-index-congress')}}">
-            <i class="mdl-color-text--black material-icons" role="presentation">business</i>
-            @lang('global.congress.title')
-        </a>
-    </span>
-    
-    @if(isset($congress))   
+    <a class="mdl-navigation__link mdl-color-text--grey-900" href="{{ url('admin/customer-registration-index') }}">
+        <i class="mdl-color-text--black material-icons">verified_user</i>@lang('global.registrations.title')
+    </a>
 
-    @can('speaker_access')
-    <span class="mdl-navigation__link mdl-color-text--grey-900" >
-        <a href="{{url('/admin/speaker-congress/'.$congress->id)}}">
+
+    <a class="mdl-navigation__link mdl-color-text--grey-900" href="{{url('/admin/customer-index-congress')}}">
+        <i class="mdl-color-text--black material-icons" role="presentation">business</i>
+        @lang('global.congress.title')
+    </a>
+
+    @if(isset($congress))   
+        @if(isset($congress->id))
+        
+        <a class="mdl-navigation__link mdl-color-text--grey-900" href="{{url('/admin/speaker-congress/'.$congress->id)}}">
             <i class="mdl-color-text--black material-icons" role="presentation">people</i>
             @lang('global.speakers.title')
         </a>
-    </span>
-    @endcan
-
-    @can('hotel_access')
-    <span class="mdl-navigation__link mdl-color-text--grey-900" >
-        <a href="{{url('/admin/congress-hotels/'.$congress->id)}}">
+       
+        <a class="mdl-navigation__link mdl-color-text--grey-900" href="{{url('/admin/congress-hotels/'.$congress->id)}}">
             <i class="mdl-color-text--black material-icons" role="presentation">hotel</i>@lang('global.hotels.title')
-        </a>
-    </span>          
-    @endcan
+        </a> 
+        @endif
     @endif
 
     @can('faq_management_access')

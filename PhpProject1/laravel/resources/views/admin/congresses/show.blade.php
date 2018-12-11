@@ -2,8 +2,6 @@
 
 @section('content')
 
-
-
 <div class="mdl-cell mdl-cell--12-col">
     <div class="mdl-card" style="width: 100%;">
         <div class="mdl-card__title">
@@ -13,55 +11,59 @@
 
         </div>
         <div class="mdl-card__supporting-text">
-            <table class="mdl-data-table mdl-js-data-table mdl-shadow--2dp">            
-                <tr>
-                    <th class="mdl-data-table__cell--non-numeric">@lang('global.congress.fields.descrizione')</th>
-                    <td field-key='descrizione'>{{ $congress->descrizione }}</td>
-                </tr>
-                <tr>
-                    <th class="mdl-data-table__cell--non-numeric">@lang('global.congress.fields.data-inizio')</th>
-                    <td field-key='data_inizio'>{{ $congress->data_inizio }}</td>
-                </tr>
-                <tr>
-                    <th class="mdl-data-table__cell--non-numeric">@lang('global.congress.fields.data-fine')</th>
-                    <td field-key='data_fine'>{{ $congress->data_fine }}</td>
-                </tr>
-                <tr>
-                    <th class="mdl-data-table__cell--non-numeric">@lang('global.congress.fields.img')</th>
-                    <td field-key='img'>@if($congress->img)<a href="{{ asset(env('UPLOAD_PATH').'/' . $congress->img) }}" target="_blank">Download file</a>@endif</td>
-                </tr>
-                <tr>
-                    <th class="mdl-data-table__cell--non-numeric">@lang('global.congress.fields.descr-sede')</th>
-                    <td field-key='descr_sede'>{{ $congress->descr_sede }}</td>
-                </tr>
-                <tr>
-                    <th class="mdl-data-table__cell--non-numeric">@lang('global.congress.fields.ind-sede')</th>
-                    <td field-key='ind_sede'>{{ $congress->ind_sede }}</td>
-                </tr>
-                <tr>
-                    <th class="mdl-data-table__cell--non-numeric">@lang('global.congress.fields.lat')</th>
-                    <td field-key='lat'>{{ $congress->lat }}</td>
-                </tr>
-                <tr>
-                    <th class="mdl-data-table__cell--non-numeric">@lang('global.congress.fields.lng')</th>
-                    <td field-key='lng'>{{ $congress->lng }}</td>
-                </tr>
-                <tr>
-                    <th class="mdl-data-table__cell--non-numeric">@lang('global.congress.fields.cap-sede')</th>
-                    <td field-key='cap_sede'>{{ $congress->cap_sede }}</td>
-                </tr>
-                <tr>
-                    <th class="mdl-data-table__cell--non-numeric">@lang('global.congress.fields.id-citta-sede')</th>
-                    <td field-key='id_citta_sede'>{{ $congress->id_citta_sede->name ?? '' }}</td>
-                </tr>
-                <tr>
-                    <th class="mdl-data-table__cell--non-numeric">@lang('global.congress.fields.id-prov-sede')</th>
-                    <td field-key='id_prov_sede'>{{ $congress->id_prov_sede->nome ?? '' }}</td>
-                </tr>
-            </table>
+            <div class="row">
+                <div class="col-md-6">
+                    <table class="table table-bordered table-striped">            
+                        <tr>
+                            <th >@lang('global.congress.fields.descrizione')</th>
+                            <td field-key='descrizione'>{!! $congress->descrizione !!}</td>
+                        </tr>
+                        <tr>
+                            <th >@lang('global.congress.fields.data-inizio')</th>
+                            <td field-key='data_inizio'>{{ $congress->data_inizio }}</td>
+                        </tr>
+                        <tr>
+                            <th >@lang('global.congress.fields.data-fine')</th>
+                            <td field-key='data_fine'>{{ $congress->data_fine }}</td>
+                        </tr>
+                        <tr>
+                            <th >@lang('global.congress.fields.img')</th>
+                            <td field-key='img'>@if($congress->img)<a href="{{ asset(env('UPLOAD_PATH').'/' . $congress->img) }}" target="_blank">Download file</a>@endif</td>
+                        </tr>
+                        <tr>
+                            <th >@lang('global.congress.fields.descr-sede')</th>
+                            <td field-key='descr_sede'>{!! $congress->descr_sede !!}</td>
+                        </tr>
+                        <tr>
+                            <th >@lang('global.congress.fields.ind-sede')</th>
+                            <td field-key='ind_sede'>{{ $congress->ind_sede }}</td>
+                        </tr>
+                        <tr>
+                            <th >@lang('global.congress.fields.lat')</th>
+                            <td field-key='lat'>{{ $congress->lat }}</td>
+                        </tr>
+                        <tr>
+                            <th >@lang('global.congress.fields.lng')</th>
+                            <td field-key='lng'>{{ $congress->lng }}</td>
+                        </tr>
+                        <tr>
+                            <th >@lang('global.congress.fields.cap-sede')</th>
+                            <td field-key='cap_sede'>{{ $congress->cap_sede }}</td>
+                        </tr>
+                        <tr>
+                            <th >@lang('global.congress.fields.id-citta-sede')</th>
+                            <td field-key='id_citta_sede'>{{ $congress->id_citta_sede->name ?? '' }}</td>
+                        </tr>
+                        <tr>
+                            <th >@lang('global.congress.fields.id-prov-sede')</th>
+                            <td field-key='id_prov_sede'>{{ $congress->id_prov_sede->nome ?? '' }}</td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
         </div>
         <div class='mdl-card__actions'>
-            <a href="{{ route('admin.congresses.index') }}" class="btn btn-default">@lang('global.app_back_to_list')</a>
+            <a href="{{ route('admin.congresses.index') }}" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent">@lang('global.app_back_to_list')</a>
         </div>
     </div>
 </div>
@@ -79,12 +81,12 @@
                     <a href="#registrations" class="mdl-tabs__tab">Registrazioni</a>            
                 </div>
                 <div class="mdl-tabs__panel is-active" id="congress_entries">
-                    <table class="mdl-data-table mdl-js-data-table mdl-shadow--2dp {{ count($congress_entries) > 0 ? 'datatable' : '' }}">
+                    <table class="table table-bordered table-striped {{ count($congress_entries) > 0 ? 'datatable' : '' }}">
                         <thead>
                             <tr>
-                                <th class="mdl-data-table__cell--non-numeric">@lang('global.congress-entries.fields.id-congress')</th>
-                                <th class="mdl-data-table__cell--non-numeric">@lang('global.congress-entries.fields.id-entry')</th>
-                                <th class="mdl-data-table__cell--non-numeric"></th>
+                                <th >@lang('global.congress-entries.fields.id-congress')</th>
+                                <th >@lang('global.congress-entries.fields.id-entry')</th>
+                                <th ></th>
 
                             </tr>
                         </thead>
@@ -124,12 +126,12 @@
                     </table>
                 </div>
                 <div class="mdl-tabs__panel" id="congress_hotel">
-                    <table class="mdl-data-table mdl-js-data-table mdl-shadow--2dp {{ count($congress_hotels) > 0 ? 'datatable' : '' }}">
+                    <table class="table table-bordered table-striped {{ count($congress_hotels) > 0 ? 'datatable' : '' }}">
                         <thead>
                             <tr>
-                                <th class="mdl-data-table__cell--non-numeric">@lang('global.congress-hotel.fields.id-congress')</th>
-                                <th class="mdl-data-table__cell--non-numeric">@lang('global.congress-hotel.fields.id-hotel')</th>
-                                <th class="mdl-data-table__cell--non-numeric">&nbsp;</th>
+                                <th >@lang('global.congress-hotel.fields.id-congress')</th>
+                                <th >@lang('global.congress-hotel.fields.id-hotel')</th>
+                                <th >&nbsp;</th>
 
                             </tr>
                         </thead>
@@ -169,12 +171,12 @@
                     </table>
                 </div>
                 <div class="mdl-tabs__panel" id="speakers_congress">
-                    <table class="mdl-data-table mdl-js-data-table mdl-shadow--2dp {{ count($speakers_congresses) > 0 ? 'datatable' : '' }}">
+                    <table class="table table-bordered table-striped {{ count($speakers_congresses) > 0 ? 'datatable' : '' }}">
                         <thead>
                             <tr>
-                                <th class="mdl-data-table__cell--non-numeric">@lang('global.speakers-congress.fields.id-congress')</th>
-                                <th class="mdl-data-table__cell--non-numeric">@lang('global.speakers-congress.fields.id-speaker')</th>
-                                <th class="mdl-data-table__cell--non-numeric">&nbsp;</th>
+                                <th >@lang('global.speakers-congress.fields.id-congress')</th>
+                                <th >@lang('global.speakers-congress.fields.id-speaker')</th>
+                                <th >&nbsp;</th>
 
                             </tr>
                         </thead>
@@ -214,17 +216,17 @@
                     </table>
                 </div>
                 <div class="mdl-tabs__panel" id="day">
-                    <table class="mdl-data-table mdl-js-data-table mdl-shadow--2dp {{ count($days) > 0 ? 'datatable' : '' }}">
+                    <table class="table table-bordered table-striped {{ count($days) > 0 ? 'datatable' : '' }}">
                         <thead>
                             <tr>
-                                <th class="mdl-data-table__cell--non-numeric">@lang('global.day.fields.nome')</th>
-                                <th class="mdl-data-table__cell--non-numeric">@lang('global.day.fields.descrizione')</th>
-                                <th class="mdl-data-table__cell--non-numeric">@lang('global.day.fields.id-congresso')</th>
-                                <th class="mdl-data-table__cell--non-numeric">@lang('global.day.fields.data')</th>
+                                <th >@lang('global.day.fields.nome')</th>
+                                <th >@lang('global.day.fields.descrizione')</th>
+                                <th >@lang('global.day.fields.id-congresso')</th>
+                                <th >@lang('global.day.fields.data')</th>
                                 @if( request('show_deleted') == 1 )
-                                <th class="mdl-data-table__cell--non-numeric">&nbsp;</th>
+                                <th >&nbsp;</th>
                                 @else
-                                <th class="mdl-data-table__cell--non-numeric">&nbsp;</th>
+                                <th >&nbsp;</th>
                                 @endif
                             </tr>
                         </thead>
@@ -284,14 +286,14 @@
                     </table>
                 </div>
                 <div class="mdl-tabs__panel" id="codes">
-                    <table class="mdl-data-table mdl-js-data-table mdl-shadow--2dp {{ count($codes) > 0 ? 'datatable' : '' }}">
+                    <table class="table table-bordered table-striped {{ count($codes) > 0 ? 'datatable' : '' }}">
                         <thead>
                             <tr>
-                                <th class="mdl-data-table__cell--non-numeric">@lang('global.codes.fields.code')</th>
-                                <th class="mdl-data-table__cell--non-numeric">@lang('global.codes.fields.qrcode')</th>
-                                <th class="mdl-data-table__cell--non-numeric">@lang('global.codes.fields.id-congress')</th>
-                                <th class="mdl-data-table__cell--non-numeric">@lang('global.codes.fields.id-user')</th>
-                                <th class="mdl-data-table__cell--non-numeric">&nbsp;</th>
+                                <th >@lang('global.codes.fields.code')</th>
+                                <th >@lang('global.codes.fields.qrcode')</th>
+                                <th >@lang('global.codes.fields.id-congress')</th>
+                                <th >@lang('global.codes.fields.id-user')</th>
+                                <th >&nbsp;</th>
 
                             </tr>
                         </thead>
@@ -333,16 +335,16 @@
                     </table>
                 </div>
                 <div class="mdl-tabs__panel" id="registrations">
-                    <table class="mdl-data-table mdl-js-data-table mdl-shadow--2dp {{ count($registrations) > 0 ? 'datatable' : '' }}">
+                    <table class="table table-bordered table-striped {{ count($registrations) > 0 ? 'datatable' : '' }}">
                         <thead>
                             <tr>
-                                <th class="mdl-data-table__cell--non-numeric">@lang('global.registrations.fields.nome-documento')</th>
-                                <th class="mdl-data-table__cell--non-numeric">@lang('global.registrations.fields.luogo-rilascio')</th>
-                                <th class="mdl-data-table__cell--non-numeric">@lang('global.registrations.fields.data-emissione')</th>
-                                <th class="mdl-data-table__cell--non-numeric">@lang('global.registrations.fields.data-scadenza')</th>
-                                <th class="mdl-data-table__cell--non-numeric">@lang('global.registrations.fields.id-tipo-doc')</th>
-                                <th class="mdl-data-table__cell--non-numeric">@lang('global.registrations.fields.path-img-doc')</th>
-                                <th class="mdl-data-table__cell--non-numeric">&nbsp;</th>
+                                <th >@lang('global.registrations.fields.nome-documento')</th>
+                                <th >@lang('global.registrations.fields.luogo-rilascio')</th>
+                                <th >@lang('global.registrations.fields.data-emissione')</th>
+                                <th >@lang('global.registrations.fields.data-scadenza')</th>
+                                <th >@lang('global.registrations.fields.id-tipo-doc')</th>
+                                <th >@lang('global.registrations.fields.path-img-doc')</th>
+                                <th >&nbsp;</th>
 
                             </tr>
                         </thead>
@@ -386,13 +388,13 @@
                     </table>
                 </div>
                 <div class="mdl-tabs__panel" id="congress_rooms">
-                    <table class="mdl-data-table mdl-js-data-table mdl-shadow--2dp">
+                    <table class="table table-bordered table-striped">
                         <thead>
                             <tr>                               
-                                <th class="mdl-data-table__cell--non-numeric">Camera</th>
-                                <th class="mdl-data-table__cell--non-numeric">Hotel</th>
-                                <th class="mdl-data-table__cell--non-numeric">Quantità</th>
-                                <th class="mdl-data-table__cell--non-numeric"></th>
+                                <th >Camera</th>
+                                <th >Hotel</th>
+                                <th >Quantità</th>
+                                <th ></th>
 
                             </tr>
                         </thead>
@@ -400,26 +402,26 @@
                         <tbody>
                             @if (!empty($congress_rooms))
                             @foreach( $congress_rooms as $congress_room)
-                                <td>{{$congress_room->room->nome}}</td>
-                                <td>{{$congress_room->room->id_hotel->nome}}</td>
-                                <td>{{$congress_room->qty}}</td>
-                                <td>
-                                @can('congress_delete')
-                                    {!! Form::open(array(
-                                    'style' => 'display: inline-block;',
-                                    'method' => 'POST',
-                                    'onsubmit' => "return confirm('".trans("global.app_are_you_sure")."');",
-                                    'route' => ['admin.congress_room.destroy', $congress_room->id])) !!}
-                                    {!! Form::submit(trans('global.app_delete'), array('class' => 'btn btn-xs btn-danger')) !!}
-                                    {!! Form::close() !!}
-                                @endcan
-                                </td>
-                            @endforeach
-                            @else
-                            <tr>
-                                <td colspan="19">@lang('global.app_no_entries_in_table')</td>
-                            </tr>
-                            @endif
+                        <td>{{$congress_room->room->nome}}</td>
+                        <td>{{$congress_room->room->id_hotel->nome}}</td>
+                        <td>{{$congress_room->qty}}</td>
+                        <td>
+                            @can('congress_delete')
+                            {!! Form::open(array(
+                            'style' => 'display: inline-block;',
+                            'method' => 'POST',
+                            'onsubmit' => "return confirm('".trans("global.app_are_you_sure")."');",
+                            'route' => ['admin.congress_room.destroy', $congress_room->id])) !!}
+                            {!! Form::submit(trans('global.app_delete'), array('class' => 'btn btn-xs btn-danger')) !!}
+                            {!! Form::close() !!}
+                            @endcan
+                        </td>
+                        @endforeach
+                        @else
+                        <tr>
+                            <td colspan="19">@lang('global.app_no_entries_in_table')</td>
+                        </tr>
+                        @endif
                         </tbody>
                     </table>
                 </div>

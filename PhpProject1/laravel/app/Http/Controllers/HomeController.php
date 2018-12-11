@@ -24,15 +24,15 @@ class HomeController extends Controller
     public function index()
     {
         
-        $congress = \App\Congress::all();
+        $congressi = \App\Congress::all();
         $array = [];
         $i = 0;
-        foreach ($congress as $item){
+        foreach ($congressi as $item){
             $array[$i] = $item;
             
             $i = $i + 1;
         }
        
-        return view('home', compact('congress'));
+        return view('home', compact('congressi'));
     }
 }

@@ -7,22 +7,14 @@
         <i class="mdl-color-text--black material-icons" role="presentation">calendar_today</i>Calendario
     </a>
 
-    <span class="mdl-navigation__link mdl-color-text--grey-900" >
-        <a href="{{ url('admin/customer-registration-index') }}">
-            <i class="fa fa-tags"></i>
-            <span>@lang('global.registrations.title')</span>
-        </a>
-    </span>
 
-    
-    <span class="mdl-navigation__link mdl-color-text--grey-900" >
-        <a href="{{ url('/admin/customer-index-congress') }}">
-            <i class="mdl-color-text--black material-icons" role="presentation">business</i>
-            @lang('global.congress.title')
-        </a>
-    </span>    
 
-    
+    <a class="mdl-navigation__link mdl-color-text--grey-900" href="{{ url('/admin/customer-index-congress') }}">
+        <i class="mdl-color-text--black material-icons" role="presentation">business</i>
+        @lang('global.congress.title')
+    </a>
+
+
     <div class="mdl-layout-spacer"></div>
     <span class="mdl-navigation__link mdl-color-text--grey-900 {{ $request->segment(1) == 'change_password' ? 'active' : '' }}">
         <i class="mdl-color-text--black material-icons">vpn_key</i>

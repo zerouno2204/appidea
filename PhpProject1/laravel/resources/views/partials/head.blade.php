@@ -42,5 +42,6 @@
 
 <link rel="stylesheet" href="/appidea/node_modules/material-design-lite/material.min.css">
 <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+<link rel="stylesheet" href="{{url('css/custom.css')}}">
 <link rel="stylesheet" href="{{url('css/material.min.css')}}">
 <link rel="stylesheet" href="{{url('mdl-template-dashboard/styles.css')}}">

@@ -12,7 +12,6 @@
             <thead>
                 <tr>
                    
-
                     <th class="mdl-data-table__cell--non-numeric">@lang('global.speakers.fields.nome')</th>
                     <th class="mdl-data-table__cell--non-numeric">@lang('global.speakers.fields.cognome')</th>
                     <th class="mdl-data-table__cell--non-numeric">@lang('global.speakers.fields.img-path')</th>
@@ -38,11 +37,9 @@
                     <td field-key='ruolo'>{{ $speaker->ruolo }}</td>
                     <td field-key='descrizione'>{!! $speaker->descrizione !!}</td>
                     <td field-key='curriculuum'>@if($speaker->curriculuum)<a href="{{ asset(env('UPLOAD_PATH').'/' . $speaker->curriculuum) }}" target="_blank">Download file</a>@endif</td>
-                    <td>
-                        @can('speaker_view')
+                    <td>                      
                         <a href="{{ url('admin/speaker-congress-show/'. $speaker->id) }}" class="btn btn-xs btn-primary">@lang('global.app_view')</a>
-                        @endcan
-                       
+                        
                     </td>
 
                 </tr>

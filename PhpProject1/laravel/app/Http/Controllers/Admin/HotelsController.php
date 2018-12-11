@@ -30,14 +30,14 @@ class HotelsController extends Controller
     
     public function hotelsCongress($id)
     {
-       
+       $congress = \App\Congress::find($id);
                 $hotels = Hotel::whereIn('id', function($q) use ($id){
                     $q->select('id_hotel_id')
                             ->from('congress_hotels')
                             ->where('id_congress_id', $id);
                 })->get();
 
-        return view('customer.hotel.index', compact('hotels'));
+        return view('customer.hotel.index', compact('hotels','congress'));
     }
 
     /**
@@ -136,7 +136,18 @@ class HotelsController extends Controller
 
         return view('admin.hotels.show', compact('hotel', 'congress_hotels', 'images_hotels', 'rooms', 'registrations'));
     }
-
+    
+    public function showHotelsCongress($id) {
+        
+        $congress = \App\Congress::whereIn('id', function($q) use ($id) {
+                    $q->select('id_congress_id')
+                            ->from('congress_hotels')
+                            ->where('id_hotel_id', $id);
+                })->first();
+        $hotel = Hotel::find($id);
+        
+        return view('customer.hotel.show', compact('hotel','congress'));
+    }
 
     /**
      * Remove Hotel from storage.

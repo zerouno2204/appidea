@@ -33,11 +33,8 @@
                     <td field-key='indirizzo'>{{ $hotel->indirizzo }}</td>
                     <td field-key='citta'>{{ $hotel->citta->name ?? '' }}</td>
                     <td>
-                        @can('hotel_view')
                         <a href="{{ url('admin/congress-hotels-show/'. $hotel->id) }}" class="btn btn-xs btn-primary">@lang('global.app_view')</a>
-                        @endcan                        
                     </td>
-
                 </tr>
                 @endforeach
                 @else

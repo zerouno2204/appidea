@@ -85,11 +85,11 @@ Route::group(['middleware' => ['auth'], 'prefix' => 'admin', 'as' => 'admin.'], 
     
     /* Hotel routes */
     Route::get('/congress-hotels/{id}', 'Admin\HotelsController@hotelsCongress');
-    Route::get('/congress-hotels-show/{id}', 'Admin\HotelsController@hotelsCongress');
+    Route::get('/congress-hotels-show/{id}', 'Admin\HotelsController@showHotelsCongress');
     
     /* Speaker routes */
-    Route::get('/speaker-congress/{id}', 'Admin\SpeakerCongressesController@speakersCongress');
-    Route::get('/speaker-congress-show/{id}', 'Admin\SpeakerCongressesController@speakersCongress');
+    Route::get('/speaker-congress/{id}', 'Admin\SpeakersCongressesController@speakersCongress');
+    Route::get('/speaker-congress-show/{id}', 'Admin\SpeakersCongressesController@showSpeakersCongress');
     
     /* Congress Room routes */    
     Route::post('/congress_room/delete', ['uses' => 'Admin\CongressesController@deleteCongressRoom', 'as' => 'congress_room.destroy' ]);

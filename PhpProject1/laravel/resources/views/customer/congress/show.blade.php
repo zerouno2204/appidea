@@ -26,6 +26,7 @@
             <li class="list-group-item">
                 <a href="{{url('/admin/customer/registration/'.$congress->id)}}" class="mdl-button mdl-js-button mdl-button--primary" style="width: 100%; border: 1px solid;">Iscriviti</a>
             </li>
+            @if(Auth::user())
             @if(Auth::user()->role_id != 6)
             <li class="list-group-item">
                 <div id="map"></div>
@@ -36,6 +37,11 @@
             </li>
             <li class="list-group-item">
                 <p>Totale spesa per camere: {{$tot}}€</p>
+            </li>
+            @endif
+            @else
+            <li class="list-group-item">
+                <div id="map"></div>
             </li>
             @endif
         </ul>       

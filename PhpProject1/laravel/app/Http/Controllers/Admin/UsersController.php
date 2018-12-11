@@ -56,9 +56,14 @@ class UsersController extends Controller
         if (! Gate::allows('user_create')) {
             return abort(401);
         }
+        $input = $request->input();
+        $role = $input['role'];
+        
         $user = User::create($request->all());
         $user->role()->sync(array_filter((array)$request->input('role')));
-        $user->role_id = $request->input('role');
+        foreach ( $role as $row){
+            $user->role_id = $row;
+        }   
         $user->save();
 
 
@@ -98,12 +103,18 @@ class UsersController extends Controller
         if (! Gate::allows('user_edit')) {
             return abort(401);
         }
+        
+        $input = $request->input();
+        $role = $input['role'];
+        //dd($input);
         $user = User::findOrFail($id);
         $user->update($request->all());
         $user->role()->sync(array_filter((array)$request->input('role')));
-        $user->role_id = $request->input('role');
+        foreach ( $role as $row){
+            $user->role_id = $row;
+        }       
+        
         $user->save();
-
 
         return redirect()->route('admin.users.index');
     }

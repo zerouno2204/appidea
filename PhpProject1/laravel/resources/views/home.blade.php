@@ -1,8 +1,8 @@
 @extends('layouts.app')
 
 @section('content')
-@if(isset($congress))
-@foreach($congress as $item)
+@if(isset($congressi))
+@foreach($congressi as $item)
 <div class="mdl-cell mdl-cell--4-col">
     <div class="mdl-card">
         <div class="mdl-card__title">

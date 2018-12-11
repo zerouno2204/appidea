@@ -15,6 +15,7 @@ use App\Congress_Rooms;
 use App\CongressHotel;
 use App\SpeakersCongress;
 use Illuminate\Support\Facades\Auth;
+use App\Speaker;
 
 class CongressesController extends Controller {
 
@@ -35,29 +36,33 @@ class CongressesController extends Controller {
 
         return view('admin.congresses.index', compact('congresses'));
     }
-    
-    public function customerIndex(){
-        
+
+    public function customerIndex() {
+
         $user_id = Auth::user()->id;
-        
+
         $iscrizioni = 0;
-        
-        if(Auth::user()->role_id != 6){
-            $congresses = Congress::whereIn('id', function($q) use ($user_id){
-                $q->select('id_congress_id')
-                        ->from('registrations')
-                        ->where('id_user_id', $user_id);
-            })->get();
-        }else{
-            $congresses = Congress::whereIn('id', function($q) use ($user_id){
-                $q->select('id_congress_id')
-                        ->from('registrations')
-                        ->where('sponsor', $user_id);
-            })->get();
-            
-            $iscrizioni = \App\Registration::where('sponsor', $user_id)->count();
+
+        if (Auth::user()->role_id != 6) {
+            $congresses = Congress::whereIn('id', function($q) use ($user_id) {
+                        $q->select('id_congress_id')
+                                ->from('registrations')
+                                ->where('id_user_id', $user_id);
+                    })->get();
+        } else {
+            $congresses = Congress::whereIn('id', function($q) use ($user_id) {
+                        $q->select('id_congress_id')
+                                ->from('codes')
+                                ->where('sponsor', $user_id);
+                    })->get();
+
+            $iscrizioni = \App\Registration::whereIn('id_congress_id', function($q) use ($user_id) {
+                        $q->select('id_congress_id')
+                                ->from('codes')
+                                ->where('sponsor', $user_id);
+                    })->count();
         }
-        
+
 
         return view('customer.congress.index', compact('congresses', 'iscrizioni'));
     }
@@ -145,27 +150,26 @@ class CongressesController extends Controller {
 
         return response()->json($array);
     }
-    
+
     public function getCongressRooms(Request $request) {
         $input = $request->input();
-        
+
         $i = 0;
         $hotel_id = $input['hotel_id'];
         $congress_id = $input['congress_id'];
         $array = [];
-        $rooms= Room::where('id_hotel_id', $hotel_id)->get();
-        
-        foreach ($rooms as $room){            
+        $rooms = Room::where('id_hotel_id', $hotel_id)->get();
+
+        foreach ($rooms as $room) {
             $congressRoom = Congress_Rooms::where('id_room', $room->id)->where('id_congress', $congress_id)->first();
-            
-            if(!empty($congressRoom)){
+
+            if (!empty($congressRoom)) {
                 $array[$i] = $room;
-                
+
                 $i = $i + 1;
             }
-            
         }
-           
+
         return response()->json($array);
     }
 
@@ -279,9 +283,9 @@ class CongressesController extends Controller {
         if (!Gate::allows('congress_view')) {
             return abort(401);
         }
-        
+
         $congress = Congress::findOrFail($id);
-        
+
         $congress_entries = \App\CongressEntry::where('id_congress_id', $id)->get();
         $congress_hotels = \App\CongressHotel::where('id_congress_id', $id)->get();
         $speakers_congresses = \App\SpeakersCongress::where('id_congress_id', $id)->get();
@@ -296,7 +300,7 @@ class CongressesController extends Controller {
     }
 
     public function showEvent($id) {
-        
+
         $tot = 0;
         $congress_entries = \App\CongressEntry::where('id_congress_id', $id)->get();
         $congress_hotels = \App\CongressHotel::where('id_congress_id', $id)->get();
@@ -307,26 +311,27 @@ class CongressesController extends Controller {
         $congress_rooms = Congress_Rooms::with('room.id_hotel')->where('id_congress', $id)->get();
 
         $congress = Congress::findOrFail($id);
-        
-        $citta = \App\City::where('id',$congress->id_citta_sede_id)->first();
-        $prov = \App\Province::where('id',$congress->id_prov_sede_id)->first();
-        
-        if( Auth::user()->role_id == 6 ){
-            $iscrizioni = \App\Registration::where('sponsor', $user_id)->where('id_congress_id', $id)->count();
-            
-            foreach ($congress_rooms as $row){
-                $tot = $tot + $congress_rooms->room->prezzo;
-            }
-            
-            return view('customer.congress.show', compact('tot','iscrizioni','congress_rooms', 'congress', 'congress_entries', 'congress_hotels', 'speakers_congresses', 'days', 'codes', 'registrations'));
 
+        $citta = \App\City::where('id', $congress->id_citta_sede_id)->first();
+        $prov = \App\Province::where('id', $congress->id_prov_sede_id)->first();
+
+        if (Auth::user()) {
+            if (Auth::user()->role_id == 6) {
+                $iscrizioni = \App\Registration::where('sponsor', $user_id)->where('id_congress_id', $id)->count();
+
+                foreach ($congress_rooms as $row) {
+                    $tot = $tot + $congress_rooms->room->prezzo;
+                }
+
+                return view('customer.congress.show', compact('tot', 'iscrizioni', 'congress_rooms', 'congress', 'congress_entries', 'congress_hotels', 'speakers_congresses', 'days', 'codes', 'registrations'));
+            }
         }
-           
+
         if (empty($congress->lat) || empty($congress->lng)) {
-            $prepAddr = str_replace(' ', '+', $congress->ind_sede.'+'.$citta->name.'+'.$prov->slug);
+            $prepAddr = str_replace(' ', '+', $congress->ind_sede . '+' . $citta->name . '+' . $prov->slug);
             $geocode = file_get_contents('https://maps.google.com/maps/api/geocode/json?address=' . $prepAddr . '&key=AIzaSyCp20T5LN8Yk8dW4TaLj6KvTpdSF8L223I');
             $output = json_decode($geocode);
-            //dd($output);
+            
             $congress->lat = $output->results[0]->geometry->location->lat;
             $congress->lng = $output->results[0]->geometry->location->lng;
             $congress->save();

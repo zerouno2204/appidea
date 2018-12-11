@@ -29,7 +29,7 @@
         </table>
     </div>
     <div class="mdl-card__actions">
-        <a href="#" onclick="goBack()" class="btn btn-default">@lang('global.app_back_to_list')</a>
+        <a href="{{url('admin/speaker-congress/'.$congress->id)}}" class="btn btn-default">@lang('global.app_back_to_list')</a>
     </div>
 </div>
 @stop
