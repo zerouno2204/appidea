@@ -8,66 +8,116 @@
     </div>
 
     <div class="mdl-card__supporting-text">
+        <div class="hidden-xs">
+            <table class="mdl-data-table mdl-js-data-table mdl-shadow--2dp {{ count($registrations) > 0 ? 'datatable' : '' }} @can('registration_delete') dt-select @endcan">
+                <thead>
+                    <tr>
+                        @can('registration_delete')
+                        <th style="text-align:center;"><input type="checkbox" id="select-all" /></th>
+                        @endcan
 
-        <table class="mdl-data-table mdl-js-data-table mdl-shadow--2dp {{ count($registrations) > 0 ? 'datatable' : '' }} @can('registration_delete') dt-select @endcan">
-            <thead>
-                <tr>
-                    @can('registration_delete')
-                    <th style="text-align:center;"><input type="checkbox" id="select-all" /></th>
-                    @endcan
+                        <th class="mdl-data-table__cell--non-numeric">@lang('global.registrations.fields.nome-documento')</th>
+                        <th class="mdl-data-table__cell--non-numeric">@lang('global.registrations.fields.luogo-rilascio')</th>
+                        <th class="mdl-data-table__cell--non-numeric">@lang('global.registrations.fields.data-emissione')</th>
+                        <th class="mdl-data-table__cell--non-numeric">@lang('global.registrations.fields.data-scadenza')</th>
+                        <th class="mdl-data-table__cell--non-numeric">&nbsp;</th>
 
-                    <th class="mdl-data-table__cell--non-numeric">@lang('global.registrations.fields.nome-documento')</th>
-                    <th class="mdl-data-table__cell--non-numeric">@lang('global.registrations.fields.luogo-rilascio')</th>
-                    <th class="mdl-data-table__cell--non-numeric">@lang('global.registrations.fields.data-emissione')</th>
-                    <th class="mdl-data-table__cell--non-numeric">@lang('global.registrations.fields.data-scadenza')</th>
-                    <th class="mdl-data-table__cell--non-numeric">@lang('global.registrations.fields.id-tipo-doc')</th>
-                    <th class="mdl-data-table__cell--non-numeric">@lang('global.registrations.fields.path-img-doc')</th>
-                    <th class="mdl-data-table__cell--non-numeric">&nbsp;</th>
+                    </tr>
+                </thead>
 
-                </tr>
-            </thead>
+                <tbody>
+                    @if (count($registrations) > 0)
+                    @foreach ($registrations as $registration)
+                    <tr data-entry-id="{{ $registration->id }}">
+                        @can('registration_delete')
+                        <td></td>
+                        @endcan
 
-            <tbody>
+                        <td field-key='nome_documento'>{{ $registration->nome_documento }}</td>
+                        <td field-key='luogo_rilascio'>{{ $registration->luogo_rilascio }}</td>
+                        <td field-key='data_emissione'>{{ $registration->data_emissione }}</td>
+                        <td field-key='data_scadenza'>{{ $registration->data_scadenza }}</td>
+                        <td>
+                            @can('registration_view')
+                            <a href="{{ route('admin.registrations.show',[$registration->id]) }}" class="btn btn-xs btn-primary">@lang('global.app_view')</a>
+                            @endcan
+                            @can('registration_edit')
+                            <a href="{{ route('admin.registrations.edit',[$registration->id]) }}" class="btn btn-xs btn-info">@lang('global.app_edit')</a>
+                            @endcan
+                            @can('registration_delete')
+                            {!! Form::open(array(
+                            'style' => 'display: inline-block;',
+                            'method' => 'DELETE',
+                            'onsubmit' => "return confirm('".trans("global.app_are_you_sure")."');",
+                            'route' => ['admin.registrations.destroy', $registration->id])) !!}
+                            {!! Form::submit(trans('global.app_delete'), array('class' => 'btn btn-xs btn-danger')) !!}
+                            {!! Form::close() !!}
+                            @endcan
+                        </td>
+
+                    </tr>
+                    @endforeach
+                    @else
+                    <tr>
+                        <td colspan="19">@lang('global.app_no_entries_in_table')</td>
+                    </tr>
+                    @endif
+                </tbody>
+            </table>
+        </div>
+        <div class="visible-xs">
+            <ul style="list-style: none; padding: 0 15px;">
                 @if (count($registrations) > 0)
                 @foreach ($registrations as $registration)
-                <tr data-entry-id="{{ $registration->id }}">
-                    @can('registration_delete')
-                    <td></td>
-                    @endcan
+                <table class="table table-bordered table-striped">
+                    <tr>
+                        <th class="mdl-data-table__cell--non-numeric">@lang('global.registrations.fields.nome-documento')</th>
+                        <td field-key='nome_documento'>{{ $registration->nome_documento }}</td>
 
-                    <td field-key='nome_documento'>{{ $registration->nome_documento }}</td>
-                    <td field-key='luogo_rilascio'>{{ $registration->luogo_rilascio }}</td>
-                    <td field-key='data_emissione'>{{ $registration->data_emissione }}</td>
-                    <td field-key='data_scadenza'>{{ $registration->data_scadenza }}</td>
-                    <td field-key='id_tipo_doc'>{{ $registration->id_tipo_doc }}</td>
-                    <td field-key='path_img_doc'>{{ $registration->path_img_doc }}</td>
-                    <td>
-                        @can('registration_view')
-                        <a href="{{ route('admin.registrations.show',[$registration->id]) }}" class="btn btn-xs btn-primary">@lang('global.app_view')</a>
-                        @endcan
-                        @can('registration_edit')
-                        <a href="{{ route('admin.registrations.edit',[$registration->id]) }}" class="btn btn-xs btn-info">@lang('global.app_edit')</a>
-                        @endcan
-                        @can('registration_delete')
-                        {!! Form::open(array(
-                        'style' => 'display: inline-block;',
-                        'method' => 'DELETE',
-                        'onsubmit' => "return confirm('".trans("global.app_are_you_sure")."');",
-                        'route' => ['admin.registrations.destroy', $registration->id])) !!}
-                        {!! Form::submit(trans('global.app_delete'), array('class' => 'btn btn-xs btn-danger')) !!}
-                        {!! Form::close() !!}
-                        @endcan
-                    </td>
+                    </tr>
+                    <tr>
+                        <th class="mdl-data-table__cell--non-numeric">@lang('global.registrations.fields.luogo-rilascio')</th>
+                        <td field-key='luogo_rilascio'>{{ $registration->luogo_rilascio }}</td>
 
-                </tr>
+                    </tr>
+                    <tr>
+                        <th class="mdl-data-table__cell--non-numeric">@lang('global.registrations.fields.data-emissione')</th>
+                        <td field-key='data_emissione'>{{ $registration->data_emissione }}</td>
+
+                    </tr>
+                    <tr>
+                        <th class="mdl-data-table__cell--non-numeric">@lang('global.registrations.fields.data-scadenza')</th>
+                        <td field-key='data_scadenza'>{{ $registration->data_scadenza }}</td>
+
+                    </tr>
+                    <tr>
+
+                        <th class="mdl-data-table__cell--non-numeric">&nbsp;</th>
+                        <td>
+                            @can('registration_view')
+                            <a href="{{ route('admin.registrations.show',[$registration->id]) }}" class="btn btn-xs btn-primary">@lang('global.app_view')</a>
+                            @endcan
+                            @can('registration_edit')
+                            <a href="{{ route('admin.registrations.edit',[$registration->id]) }}" class="btn btn-xs btn-info">@lang('global.app_edit')</a>
+                            @endcan
+                            @can('registration_delete')
+                            {!! Form::open(array(
+                            'style' => 'display: inline-block;',
+                            'method' => 'DELETE',
+                            'onsubmit' => "return confirm('".trans("global.app_are_you_sure")."');",
+                            'route' => ['admin.registrations.destroy', $registration->id])) !!}
+                            {!! Form::submit(trans('global.app_delete'), array('class' => 'btn btn-xs btn-danger')) !!}
+                            {!! Form::close() !!}
+                            @endcan
+                        </td>
+                    </tr>
+                </table>
                 @endforeach
                 @else
-                <tr>
-                    <td colspan="19">@lang('global.app_no_entries_in_table')</td>
-                </tr>
+                <li>@lang('global.app_no_entries_in_table')</li>
                 @endif
-            </tbody>
-        </table>
+            </ul>
+        </div>
     </div>
     <div class="mdl-card__actions">
         @can('registration_create')

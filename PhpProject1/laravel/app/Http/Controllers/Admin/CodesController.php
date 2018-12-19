@@ -23,7 +23,8 @@ class CodesController extends Controller
         }
 
 
-                $codes = Code::all();
+                $codes = Code::with('id_congress','sponsor')->get();
+                //dd($codes);
 
         return view('admin.codes.index', compact('codes'));
     }
@@ -40,7 +41,7 @@ class CodesController extends Controller
         }
         
         $id_congresses = \App\Congress::get()->pluck('nome', 'id')->prepend(trans('global.app_please_select'), '');
-        $id_users = \App\User::get()->pluck('name', 'id')->prepend(trans('global.app_please_select'), '');
+        $id_users = \App\User::where('role_id', 6)->get();
 
         return view('admin.codes.create', compact('id_congresses', 'id_users'));
     }
@@ -77,7 +78,7 @@ class CodesController extends Controller
         }
         
         $id_congresses = \App\Congress::get()->pluck('nome', 'id')->prepend(trans('global.app_please_select'), '');
-        $id_users = \App\User::get()->pluck('name', 'id')->prepend(trans('global.app_please_select'), '');
+        $id_users = \App\User::where('role_id', 6)->get();
 
         $code = Code::findOrFail($id);
 

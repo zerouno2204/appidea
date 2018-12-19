@@ -1,15 +1,13 @@
 @extends('layouts.app')
 
 @section('content')
-    <h3 class="page-title">@lang('global.speakers-congress.title')</h3>
-    {!! Form::open(['method' => 'POST', 'route' => ['admin.speakers_congresses.store']]) !!}
-
-    <div class="panel panel-default">
-        <div class="panel-heading">
-            @lang('global.app_create')
+    <div class="mdl-card">
+        <div class="mdl-card__title">
+          <h2 class="mdl-card__title-text">@lang('global.speakers-congress.title') @lang('global.app_create')</h2>  
         </div>
         
-        <div class="panel-body">
+        <div class="mdl-card__supporting-text">
+            {!! Form::open(['method' => 'POST', 'route' => ['admin.speakers_congresses.store']]) !!}
             <div class="row">
                 <div class="col-xs-12 form-group">
                     {!! Form::label('id_congress_id', trans('global.speakers-congress.fields.id-congress').'', ['class' => 'control-label']) !!}
@@ -34,11 +32,11 @@
                     @endif
                 </div>
             </div>
-            
+            {!! Form::submit(trans('global.app_save'), ['class' => 'btn btn-danger']) !!}
+    {!! Form::close() !!}
         </div>
     </div>
 
-    {!! Form::submit(trans('global.app_save'), ['class' => 'btn btn-danger']) !!}
-    {!! Form::close() !!}
+    
 @stop
 

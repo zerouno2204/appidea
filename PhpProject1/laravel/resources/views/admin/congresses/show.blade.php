@@ -214,6 +214,10 @@
                             @endif
                         </tbody>
                     </table>
+                    <p>
+                        <a href="{{ route('admin.speakers_congresses.create') }}" class="btn btn-success">@lang('global.app_add_new')</a>
+
+                    </p>
                 </div>
                 <div class="mdl-tabs__panel" id="day">
                     <table class="table table-bordered table-striped {{ count($days) > 0 ? 'datatable' : '' }}">

@@ -8,6 +8,7 @@ body {
     background: #eee!important;
     font-size: 1.4em!important;
 }
+
 .h1, .h2, .h3, .h4, .h5, .h6, h1, h2, h3, h4, h5, h6 {
     font-weight: 400!important;
     font-family: 'Roboto',sans-serif!important;
@@ -17,6 +18,7 @@ body {
 .h3, h3 {
     font-size: 2em!important;
 }
+
 .checkbox label, .radio label, label {
     font-weight: 300;
     font-size: 0.8em!important;
@@ -231,6 +233,15 @@ form .row {
     font-weight: inherit!important;
     margin-bottom: 5em;
     box-shadow: 0 4px 8px 0 rgba(0,0,0,.26)!important;
+}
+#accordion .card{
+    min-height: 0!important;
+    margin-bottom: 0!important;
+    box-shadow: none !important;
+    border: 1px solid #c6c6c6;
+}
+h5.mb-0{
+    margin: 0!important;
 }
 .product-title {
     border-top-left-radius: 3px;

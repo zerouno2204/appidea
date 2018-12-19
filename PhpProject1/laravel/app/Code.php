@@ -53,4 +53,9 @@ class Code extends Model
         return $this->belongsTo(User::class, 'id_user_id');
     }
     
+     public function sponsor()
+    {
+        return $this->belongsTo(User::class, 'sponsor');
+    }
+    
 }

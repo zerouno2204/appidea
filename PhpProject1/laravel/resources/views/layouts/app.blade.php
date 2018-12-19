@@ -3,31 +3,24 @@
 
     <head>
         @include('partials.head')
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-multiselect/0.9.15/css/bootstrap-multiselect.css" />
-
         <style>
             ul#two-column {
                 columns: 2;
                 -webkit-columns: 2;
                 -moz-columns: 2;
             }
-
+            #map{
+                height: 300px;
+            }
+            .mdl-card{
+                width: 100% !important;
+            }
             .mdl-menu__outline.mdl-menu--bottom-right {
                 max-height: 300px;
             }
             ul.mdl-menu.mdl-menu--bottom-right.mdl-js-menu.mdl-js-ripple-effect.mdl-js-ripple-effect--ignore-events {
                 max-height: 300px !important;
                 overflow: auto;
-            }
-            .mdl-card{
-                width: 100%;
-            }
-            .mdl-tabs__panel{
-                padding-top: 20px;
-            }
-            #map {
-                height: 200px;  /* The height is 400 pixels */
-                width: 100%;  /* The width is the width of the web page */
             }
         </style>
     </head>
@@ -78,17 +71,16 @@
 
         @include('partials.javascripts')
     </body>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-multiselect/0.9.15/js/bootstrap-multiselect.js"></script>
     <script>
-    $(document).ready(function () {
-        $(".mdl-layout__drawer-button").click(function () {
-            $(".mdl-layout__drawer").addClass('is-visible');
-            $(".mdl-layout__obfuscator").addClass('is-visible');
+        $(document).ready(function () {
+            $(".mdl-layout__drawer-button").click(function () {
+                $(".mdl-layout__drawer").addClass('is-visible');
+                $(".mdl-layout__obfuscator").addClass('is-visible');
+            });
+            $(".mdl-layout__obfuscator").click(function () {
+                $(".mdl-layout__drawer").removeClass('is-visible');
+                $(".mdl-layout__obfuscator").removeClass('is-visible');
+            });
         });
-        $(".mdl-layout__obfuscator").click(function () {
-            $(".mdl-layout__drawer").removeClass('is-visible');
-            $(".mdl-layout__obfuscator").removeClass('is-visible');
-        });
-    });
     </script>
 </html>

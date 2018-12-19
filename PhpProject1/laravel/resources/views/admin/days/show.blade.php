@@ -1,21 +1,16 @@
 @extends('layouts.app')
 
-@section('content')
-    <h3 class="page-title">@lang('global.day.title')</h3>
+@section('content')   
 
-    <div class="panel panel-default">
-        <div class="panel-heading">
-            @lang('global.app_view')
-        </div>
+    <div class="mdl-card">
+    <div class="mdl-card__title">
+        <h2 class="mdl-card__title-text">{{ $day->nome }}</h2>
+    </div>
 
-        <div class="panel-body table-responsive">
+        <div class="mdl-card__supporting-text">
             <div class="row">
                 <div class="col-md-6">
-                    <table class="table table-bordered table-striped">
-                        <tr>
-                            <th>@lang('global.day.fields.nome')</th>
-                            <td field-key='nome'>{{ $day->nome }}</td>
-                        </tr>
+                    <table class="table table-bordered table-striped">                       
                         <tr>
                             <th>@lang('global.day.fields.descrizione')</th>
                             <td field-key='descrizione'>{!! $day->descrizione !!}</td>

@@ -64,7 +64,10 @@
                 </div>
 
                 <div class="mdl-grid">
-                    <div class="mdl-cell mdl-cell--6-col">
+                    <div class="mdl-cell mdl-cell--4-col">
+                        <a href="#" class="mdl-button mdl-js-button mdl-js-ripple-effect" onclick="goBack()">Annulla</a>
+                    </div>
+                    <div class="mdl-cell mdl-cell--4-col">
                         <a href="{{ route('auth.password.reset') }}">@lang('global.app_forgot_password')</a>
                     
                         <label>
@@ -73,7 +76,7 @@
                         </label>
                     </div>
 
-                    <div class="mdl-cell mdl-cell--6-col">
+                    <div class="mdl-cell mdl-cell--4-col">
                         <button type="submit"
                                 class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent" >
                             @lang('global.app_login')
@@ -86,4 +89,9 @@
     </div>
 </div>
 <div class="mdl-cell mdl-cell--4-col"></div>
+<script>
+function goBack() {
+    window.history.back();
+}
+</script>
 @endsection

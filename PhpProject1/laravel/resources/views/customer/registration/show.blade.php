@@ -3,8 +3,8 @@
 @section('content')
 <div class="mdl-card">
     <div class="mdl-card__title mdl-card--border">
-        <h2 class="mdl-card__title-text">{{ $registration->id_congress->nome }}</h2>
-        <h3 class="mdl-card__subtitle-text">Registrazione</h3>
+        <h2 class="mdl-card__title-text">{{ $registration->id_congress->nome }}</h2> 
+        <strong class="mdl-card__subtitle-text">Registrazione</strong>
     </div>
     <div class="mdl-card__supporting-text">        
         <table class="table table-bordered table-striped">
@@ -32,7 +32,7 @@
         </div>
     </div>
     <div class="mdl-card__actions">
-        <a href="{{ url('/admin/customer-registration-index') }}" class="btn btn-default">@lang('global.app_back_to_list')</a>
+        <a href="{{ url('/admin/customer-registration-index') }}" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent">@lang('global.app_back_to_list')</a>
     </div>
 </div>
 @endsection

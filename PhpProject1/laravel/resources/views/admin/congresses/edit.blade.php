@@ -81,14 +81,14 @@
                 @foreach($congress_hotel as $row)
                        @foreach($hotels as $hotel)
                             @if($row->id_hotel_id == $hotel->id)
-                                <h3>$hotel->nome</h3>
+                                <h3>{{$hotel->nome}}</h3>
                                 @foreach($congress_room as $row)
                                     @foreach($rooms as $room)
                                         @if( ($room->id == $row->id_room) && ( $room->id_hotel_id == $hotel->id ) )
                                         <p>Titolo: {{$room->nome}}</p>
                                         <p>Prezzo: {{$room->prezzo}} €</p>
                                         <p>Posti Letto: {{$room->p_letto}}</p>
-                                        <p>Prenotate: {{$congress_room->qty}}</p>
+                                        <p>Prenotate: {{$row->qty}}</p>
                                         @endif
                                     @endforeach
                                 @endforeach
@@ -129,7 +129,7 @@
             </div>
         </div>            
         <div class="mdl-grid">
-            <div class="mdl-cell mdl-cell--6-col-desktop">
+            <div class="mdl-cell mdl-cell--4-col-desktop">
                 {!! Form::label('ind_sede', trans('global.congress.fields.ind-sede').'', ['class' => 'control-label']) !!}
                 {!! Form::text('ind_sede', old('ind_sede'), ['class' => 'form-control', 'placeholder' => '']) !!}
                 <p class="help-block"></p>
@@ -139,7 +139,7 @@
                 </p>
                 @endif
             </div>
-            <div class="mdl-cell mdl-cell--6-col-desktop">
+            <div class="mdl-cell mdl-cell--4-col-desktop">
                 {!! Form::label('cap_sede', trans('global.congress.fields.cap-sede').'', ['class' => 'control-label']) !!}
                 {!! Form::text('cap_sede', old('cap_sede'), ['class' => 'form-control', 'placeholder' => '']) !!}
                 <p class="help-block"></p>
@@ -148,6 +148,10 @@
                     {{ $errors->first('cap_sede') }}
                 </p>
                 @endif
+            </div>
+            <div class="mdl-cell mdl-cell--4-col-desktop">
+                <label class="control-label">Email Referente</label>
+                <input type="email" name="email_referente" value="{{$congress->email_referente}}" class="form-control">
             </div>
         </div>
         <div class="mdl-grid">

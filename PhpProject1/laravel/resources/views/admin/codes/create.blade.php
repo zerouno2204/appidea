@@ -47,8 +47,13 @@
             </div>
             <div class="row">
                 <div class="col-xs-12 form-group">
-                    {!! Form::label('sponsor', trans('global.codes.fields.sponsor').'', ['class' => 'control-label']) !!}
-                    {!! Form::text('sponsor', old('sponsor'), ['class' => 'form-control', 'placeholder' => '']) !!}
+                    
+                    <label class="control-label">@lang('global.codes.fields.sponsor')</label>
+                    <select name="sponsor" class="form-control select2">
+                        @foreach($id_users as $user)
+                        <option value="{{$user->id}}">{{$user->name}}</option>
+                        @endforeach
+                    </select>
                     <p class="help-block"></p>
                     @if($errors->has('sponsor'))
                     <p class="help-block">

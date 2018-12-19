@@ -8,49 +8,84 @@
         <h2 class="mdl-card__title-text">@lang('global.speakers.title')</h2>
     </div>
     <div class="mdl-card__supporting-text">
-        <table class="mdl-data-table mdl-js-data-table mdl-shadow--2dp ">
-            <thead>
-                <tr>
-                   
-                    <th class="mdl-data-table__cell--non-numeric">@lang('global.speakers.fields.nome')</th>
-                    <th class="mdl-data-table__cell--non-numeric">@lang('global.speakers.fields.cognome')</th>
-                    <th class="mdl-data-table__cell--non-numeric">@lang('global.speakers.fields.img-path')</th>
-                    <th class="mdl-data-table__cell--non-numeric">@lang('global.speakers.fields.contatti')</th>
-                    <th class="mdl-data-table__cell--non-numeric">@lang('global.speakers.fields.ruolo')</th>
-                    <th class="mdl-data-table__cell--non-numeric">@lang('global.speakers.fields.descrizione')</th>
-                    <th class="mdl-data-table__cell--non-numeric">@lang('global.speakers.fields.curriculuum')</th>
-                    <th class="mdl-data-table__cell--non-numeric">&nbsp;</th>
+        <div class="hidden-xs">
 
-                </tr>
-            </thead>
+            <table class="mdl-data-table mdl-js-data-table mdl-shadow--2dp ">
+                <thead>
+                    <tr>
 
-            <tbody>
+                        <th class="mdl-data-table__cell--non-numeric">@lang('global.speakers.fields.nome')</th>
+                        <th class="mdl-data-table__cell--non-numeric">@lang('global.speakers.fields.cognome')</th>
+                        <th class="mdl-data-table__cell--non-numeric">@lang('global.speakers.fields.contatti')</th>
+                        <th class="mdl-data-table__cell--non-numeric">@lang('global.speakers.fields.curriculuum')</th>
+                        <th class="mdl-data-table__cell--non-numeric">&nbsp;</th>
+
+                    </tr>
+                </thead>
+
+                <tbody>
+                    @if (count($speakers) > 0)
+                    @foreach ($speakers as $speaker)
+                    <tr data-entry-id="{{ $speaker->id }}">
+
+
+                        <td field-key='nome'>{{ $speaker->nome }}</td>
+                        <td field-key='cognome'>{{ $speaker->cognome }}</td>
+                        <td field-key='contatti'>{{ $speaker->contatti }}</td>
+                        <td field-key='curriculuum'>@if($speaker->curriculuum)<a href="{{ asset(env('UPLOAD_PATH').'/' . $speaker->curriculuum) }}" target="_blank">Download file</a>@endif</td>
+                        <td>                      
+                            <a href="{{ url('admin/speaker-congress-show/'. $speaker->id) }}" class="btn btn-xs btn-primary">@lang('global.app_view')</a>
+
+                        </td>
+
+                    </tr>
+                    @endforeach
+                    @else
+                    <tr>
+                        <td colspan="12">@lang('global.app_no_entries_in_table')</td>
+                    </tr>
+                    @endif
+                </tbody>
+            </table>
+        </div>
+        <div class="visible-xs">
+            <ul style="list-style: none; padding: 0 15px;">
                 @if (count($speakers) > 0)
                 @foreach ($speakers as $speaker)
-                <tr data-entry-id="{{ $speaker->id }}">
-                   
-
-                    <td field-key='nome'>{{ $speaker->nome }}</td>
-                    <td field-key='cognome'>{{ $speaker->cognome }}</td>
-                    <td field-key='img_path'>@if($speaker->img_path)<a href="{{ asset(env('UPLOAD_PATH').'/' . $speaker->img_path) }}" target="_blank">Download file</a>@endif</td>
-                    <td field-key='contatti'>{{ $speaker->contatti }}</td>
-                    <td field-key='ruolo'>{{ $speaker->ruolo }}</td>
-                    <td field-key='descrizione'>{!! $speaker->descrizione !!}</td>
-                    <td field-key='curriculuum'>@if($speaker->curriculuum)<a href="{{ asset(env('UPLOAD_PATH').'/' . $speaker->curriculuum) }}" target="_blank">Download file</a>@endif</td>
-                    <td>                      
-                        <a href="{{ url('admin/speaker-congress-show/'. $speaker->id) }}" class="btn btn-xs btn-primary">@lang('global.app_view')</a>
-                        
-                    </td>
-
-                </tr>
+                <li>
+                    <table class="table table-bordered table-striped">  
+                        <tr>
+                            <th>@lang('global.speakers.fields.nome')</th>
+                            <td field-key='nome'>{{ $speaker->nome }}</td>
+                        </tr>
+                        <tr>
+                            <th>@lang('global.speakers.fields.cognome')</th>
+                            <td field-key='cognome'>{{ $speaker->cognome }}</td>
+                        </tr>
+                        <tr>
+                            <th>@lang('global.speakers.fields.contatti')</th>
+                            <td field-key='contatti'>{{ $speaker->contatti }}</td>
+                        </tr>
+                        <tr>
+                            <th>@lang('global.speakers.fields.curriculuum')</th>
+                            <td field-key='curriculuum'>@if($speaker->curriculuum)<a href="{{ asset(env('UPLOAD_PATH').'/' . $speaker->curriculuum) }}" target="_blank">Download file</a>@endif</td>
+                        </tr>
+                        <tr>
+                            <th></th>
+                            <td>                      
+                                <a href="{{ url('admin/speaker-congress-show/'. $speaker->id) }}" class="btn btn-xs btn-primary">@lang('global.app_view')</a>
+                            </td>
+                        </tr>
+                    </table>
+                </li>
                 @endforeach
                 @else
-                <tr>
-                    <td colspan="12">@lang('global.app_no_entries_in_table')</td>
-                </tr>
+                <li>
+                    <p>@lang('global.app_no_entries_in_table')</p>
+                </li>
                 @endif
-            </tbody>
-        </table>
+            </ul>
+        </div>
     </div>
     <div class="mdl-card__actions">
         @can('speaker_create')

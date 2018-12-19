@@ -15,7 +15,7 @@ use App\RegistrationImage;
 use App\Code;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Mail;
-
+use App\Mail\SendEmail;
 class RegistrationsController extends Controller {
 
     use FileUploadTrait;
@@ -89,12 +89,17 @@ class RegistrationsController extends Controller {
     public function checkCode(Request $request){
         $input = $request->input();
         
+        
         if(!empty($input['code'])){
             $code = $input['code'];
             
             $check = Code::where('code', $code)->where('id_congress_id', $input['congress'])->first();
-            
-            return response()->json($check);
+                                            
+            if(!empty($check)){
+                return 'True';
+            } else {
+                return 'FALSE';
+            }
         }
                 
     }
@@ -154,16 +159,30 @@ class RegistrationsController extends Controller {
         $registration->save();
         
         
-        $mail = $this->sendMail($registration->id);
+         $this->sendMail($registration->id);
         
-
+        if(Auth::user()->role_id == 1 || Auth::user()->role_id == 3){
         return redirect()->route('admin.registrations.index');
+        } else {
+         return redirect('/admin/customer-index-congress');   
+        }
     }
     
     public function sendMail($id){        
         
-       $registration = Registration::with('id_entry','id_congress','id_hotel','id_camera')->where('id',$id)->where('id_user_id', Auth::user()->id)->first();
-
+       $registration = Registration::with('id_entry','id_congress.id_citta_sede','id_hotel','id_camera')->where('id',$id)->where('id_user_id', Auth::user()->id)->first();
+       
+       $congress = $registration->id_congress;
+       
+       $id_congress = $congress->id;
+       $user_id =  Auth::user()->id;
+       
+       $azienda = User::whereIn('id', function ($q) use($id_congress, $user_id) {
+           $q->select('sponsor')
+                   ->from('codes')
+                   ->where('id_congress_id', $id_congress)
+                   ->where('id_usr_id', $user_id);
+       })->first();
         
         $images = Image::whereIn('id', function ($q) use ($id){
             $q->select('id_image')
@@ -171,15 +190,19 @@ class RegistrationsController extends Controller {
                     ->where('id_registrazione', $id);
         })->get();
         
-        $user = Auth::user();
+        $user = Auth::user();      
+               
         
-        Mail::send('emails.reminder', ['registration' => $registration, 'images' => $images], function ($m) use ($user) {
-            $m->from('info@ideacongress.it', 'App Idea');
-
-            $m->to($user->email, $user->name)->subject('Registrazione Effettuata');
-            //$m->cc('', '' = null);
-            //$m->cc('', '' = null);
-        });
+        Mail::to($user->email)
+                ->cc('info@flamingosoftware.it')
+                ->cc('c.centi@ideacpa.com')
+                ->cc('e.diana@ideacpa.com')
+                ->cc($congress->email_referente)
+                ->cc($azienda->email)
+                ->send( new SendEmail($registration));
+        
+        
+        //return new SendEmail($registration);
         
     }
 

@@ -8,7 +8,7 @@
     </div>
 
     <div class="mdl-card__supporting-text">
-
+        <div class="hidden-xs">
         <table class="mdl-data-table mdl-js-data-table mdl-shadow--2dp {{ count($cities) > 0 ? 'datatable' : '' }} @can('city_delete') dt-select @endcan"
                style="width: 50%; margin-left: 0;">
             <thead>
@@ -61,7 +61,49 @@
                 @endif
             </tbody>
         </table>
-
+        </div>
+        <div class="visible-xs">
+            <ul style="list-style: none; padding: 0 15px;">
+                 @if (count($cities) > 0)
+                @foreach ($cities as $city)
+                <table class="table table-bordered table-striped">
+                    <tr>
+                        <th mdl-data-table__cell--non-numeric>@lang('global.cities.fields.name')</th>
+                        <td field-key='name'>{{ $city->name }}</td>
+                    </tr>
+                    <tr>
+                        <th mdl-data-table__cell--non-numeric>@lang('global.cities.fields.province')</th>
+                        <td field-key='province'>{{ $city->province->nome ?? '' }}</td>
+                    </tr>
+                    <tr>
+                        <th mdl-data-table__cell--non-numeric>&nbsp;</th>
+                        <td>
+                        @can('city_view')
+                        <a href="{{ route('admin.cities.show',[$city->id]) }}" class="btn btn-xs btn-primary">@lang('global.app_view')</a>
+                        @endcan
+                        @can('city_edit')
+                        <a href="{{ route('admin.cities.edit',[$city->id]) }}" class="btn btn-xs btn-info">@lang('global.app_edit')</a>
+                        @endcan
+                        @can('city_delete')
+                        {!! Form::open(array(
+                        'style' => 'display: inline-block;',
+                        'method' => 'DELETE',
+                        'onsubmit' => "return confirm('".trans("global.app_are_you_sure")."');",
+                        'route' => ['admin.cities.destroy', $city->id])) !!}
+                        {!! Form::submit(trans('global.app_delete'), array('class' => 'btn btn-xs btn-danger')) !!}
+                        {!! Form::close() !!}
+                        @endcan
+                    </td>
+                    </tr>
+                </table>
+                @endforeach
+                @else
+                <li>
+                    <p>@lang('global.app_no_entries_in_table')</p>
+                </li>
+                @endif
+            </ul>
+        </div>
 
     </div>
     <div class="mdl-card__actions">

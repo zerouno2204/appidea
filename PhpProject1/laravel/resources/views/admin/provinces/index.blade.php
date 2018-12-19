@@ -9,60 +9,100 @@
     </div>
 
     <div class="mdl-card__supporting-text">
+        <div class="hidden-xs">
+            <table class="mdl-data-table mdl-js-data-table mdl-shadow--2dp {{ count($provinces) > 0 ? 'datatable' : '' }} @can('province_delete') dt-select @endcan"
+                   style="width: 50%; margin-left: 0;">
+                <thead>
+                    <tr>
+                        @can('province_delete')
+                        <th style="text-align:center;"><input type="checkbox" id="select-all" /></th>
+                        @endcan
 
-        <table class="mdl-data-table mdl-js-data-table mdl-shadow--2dp {{ count($provinces) > 0 ? 'datatable' : '' }} @can('province_delete') dt-select @endcan"
-               style="width: 50%; margin-left: 0;">
-            <thead>
-                <tr>
-                    @can('province_delete')
-                    <th style="text-align:center;"><input type="checkbox" id="select-all" /></th>
-                    @endcan
+                        <th class="mdl-data-table__cell--non-numeric">@lang('global.provinces.fields.nome')</th>
+                        <th class="mdl-data-table__cell--non-numeric">@lang('global.provinces.fields.slug')</th>
+                        <th class="mdl-data-table__cell--non-numeric"></th>
 
-                    <th class="mdl-data-table__cell--non-numeric">@lang('global.provinces.fields.nome')</th>
-                    <th class="mdl-data-table__cell--non-numeric">@lang('global.provinces.fields.slug')</th>
-                    <th class="mdl-data-table__cell--non-numeric"></th>
+                    </tr>
+                </thead>
 
-                </tr>
-            </thead>
+                <tbody>
+                    @if (count($provinces) > 0)
+                    @foreach ($provinces as $province)
+                    <tr data-entry-id="{{ $province->id }}">
+                        @can('province_delete')
+                        <td></td>
+                        @endcan
 
-            <tbody>
+                        <td field-key='nome'>{{ $province->nome }}</td>
+                        <td field-key='slug'>{{ $province->slug }}</td>
+                        <td>
+                            @can('province_view')
+                            <a href="{{ route('admin.provinces.show',[$province->id]) }}" class="btn btn-xs btn-primary">@lang('global.app_view')</a>
+                            @endcan
+                            @can('province_edit')
+                            <a href="{{ route('admin.provinces.edit',[$province->id]) }}" class="btn btn-xs btn-info">@lang('global.app_edit')</a>
+                            @endcan
+                            @can('province_delete')
+                            {!! Form::open(array(
+                            'style' => 'display: inline-block;',
+                            'method' => 'DELETE',
+                            'onsubmit' => "return confirm('".trans("global.app_are_you_sure")."');",
+                            'route' => ['admin.provinces.destroy', $province->id])) !!}
+                            {!! Form::submit(trans('global.app_delete'), array('class' => 'btn btn-xs btn-danger')) !!}
+                            {!! Form::close() !!}
+                            @endcan
+                        </td>
+
+                    </tr>
+                    @endforeach
+                    @else
+                    <tr>
+                        <td colspan="7">@lang('global.app_no_entries_in_table')</td>
+                    </tr>
+                    @endif
+                </tbody>
+            </table>
+        </div>
+        <div class="visible-xs">
+            <ul style="list-style: none; padding: 0 15px;">
                 @if (count($provinces) > 0)
                 @foreach ($provinces as $province)
-                <tr data-entry-id="{{ $province->id }}">
-                    @can('province_delete')
-                    <td></td>
-                    @endcan
-
-                    <td field-key='nome'>{{ $province->nome }}</td>
-                    <td field-key='slug'>{{ $province->slug }}</td>
-                    <td>
-                        @can('province_view')
-                        <a href="{{ route('admin.provinces.show',[$province->id]) }}" class="btn btn-xs btn-primary">@lang('global.app_view')</a>
-                        @endcan
-                        @can('province_edit')
-                        <a href="{{ route('admin.provinces.edit',[$province->id]) }}" class="btn btn-xs btn-info">@lang('global.app_edit')</a>
-                        @endcan
-                        @can('province_delete')
-                        {!! Form::open(array(
-                        'style' => 'display: inline-block;',
-                        'method' => 'DELETE',
-                        'onsubmit' => "return confirm('".trans("global.app_are_you_sure")."');",
-                        'route' => ['admin.provinces.destroy', $province->id])) !!}
-                        {!! Form::submit(trans('global.app_delete'), array('class' => 'btn btn-xs btn-danger')) !!}
-                        {!! Form::close() !!}
-                        @endcan
-                    </td>
-
-                </tr>
+                <table class="table table-bordered table-striped">
+                    <tr>
+                        <th>@lang('global.provinces.fields.nome')</th>
+                        <td field-key='nome'>{{ $province->nome }}</td>
+                    </tr>
+                    <tr>
+                        <th>@lang('global.provinces.fields.slug')</th>
+                        <td field-key='slug'>{{ $province->slug }}</td>
+                    </tr>
+                    <tr>
+                        <th></th>
+                        <td>
+                            @can('province_view')
+                            <a href="{{ route('admin.provinces.show',[$province->id]) }}" class="btn btn-xs btn-primary">@lang('global.app_view')</a>
+                            @endcan
+                            @can('province_edit')
+                            <a href="{{ route('admin.provinces.edit',[$province->id]) }}" class="btn btn-xs btn-info">@lang('global.app_edit')</a>
+                            @endcan
+                            @can('province_delete')
+                            {!! Form::open(array(
+                            'style' => 'display: inline-block;',
+                            'method' => 'DELETE',
+                            'onsubmit' => "return confirm('".trans("global.app_are_you_sure")."');",
+                            'route' => ['admin.provinces.destroy', $province->id])) !!}
+                            {!! Form::submit(trans('global.app_delete'), array('class' => 'btn btn-xs btn-danger')) !!}
+                            {!! Form::close() !!}
+                            @endcan
+                        </td>
+                    </tr>
+                </table>
                 @endforeach
                 @else
-                <tr>
-                    <td colspan="7">@lang('global.app_no_entries_in_table')</td>
-                </tr>
+                <li>@lang('global.app_no_entries_in_table')</li>
                 @endif
-            </tbody>
-        </table>
-
+            </ul>
+        </div>
     </div>
     <div class="mdl-card__actions">
         @can('province_create')   

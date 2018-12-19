@@ -24,7 +24,7 @@ class StoreHallsRequest extends FormRequest
     {
         return [
             'nome' => 'max:255',
-            'descrizione' => 'max:255',
+            //'descrizione' => 'max:255',
             'capienza' => 'max:255',
         ];
     }

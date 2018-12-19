@@ -3,6 +3,7 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use App\Hall;
 
 /**
  * Class Day
@@ -40,6 +41,10 @@ class Day extends Model
     public function id_congresso()
     {
         return $this->belongsTo(Congress::class, 'id_congresso_id');
+    }
+    
+    public function sala(){
+        return $this->hasMany(Hall::class, 'id_giorno_id');
     }
     
 }

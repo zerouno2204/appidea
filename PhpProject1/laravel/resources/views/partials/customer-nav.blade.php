@@ -19,6 +19,10 @@
 
     @if(isset($congress))   
         @if(isset($congress->id))
+        <a class="mdl-navigation__link mdl-color-text--grey-900" href="{{url('/admin/congress-program/'.$congress->id)}}">
+            <i class="mdl-color-text--black material-icons" role="presentation">assignment</i>
+            Programma
+        </a>
         
         <a class="mdl-navigation__link mdl-color-text--grey-900" href="{{url('/admin/speaker-congress/'.$congress->id)}}">
             <i class="mdl-color-text--black material-icons" role="presentation">people</i>

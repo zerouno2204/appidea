@@ -100,6 +100,12 @@ class CongressesController extends Controller {
 
         $request = $this->saveFiles($request);
         $congress = Congress::create($request->all());
+        
+        if(!empty($input['email_referente'])){
+            $congress->email_referente = $input['email_referente'];
+            
+            $congress->save();
+        }
 
         foreach ($input['hotels'] as $id_hotel) {
             $hotel = Hotel::find($id_hotel);
@@ -189,6 +195,7 @@ class CongressesController extends Controller {
         $id_prov_sedes = \App\Province::get()->pluck('nome', 'id')->prepend(trans('global.app_please_select'), '');
         $congress_hotel = CongressHotel::where('id_congress_id', $id)->get();
         $congress_room = Congress_Rooms::where('id_congress', $id)->get();
+        //dd($congress_room);
         $congress_relatori = SpeakersCongress::where('id_congress_id', $id)->get();
         $rooms = Room::all();
         $hotels = Hotel::all();
@@ -214,6 +221,12 @@ class CongressesController extends Controller {
         $congress->update($request->all());
 
         $input = $request->input();
+        
+        if(!empty($input['email_referente'])){
+            $congress->email_referente = $input['email_referente'];
+            
+            $congress->save();
+        }
 
         if (isset($input['hotels'])) {
             foreach ($input['hotels'] as $id_hotel) {
@@ -300,7 +313,8 @@ class CongressesController extends Controller {
     }
 
     public function showEvent($id) {
-
+        
+       
         $tot = 0;
         $congress_entries = \App\CongressEntry::where('id_congress_id', $id)->get();
         $congress_hotels = \App\CongressHotel::where('id_congress_id', $id)->get();
@@ -309,18 +323,23 @@ class CongressesController extends Controller {
         $codes = \App\Code::where('id_congress_id', $id)->get();
         $registrations = \App\Registration::where('id_congress_id', $id)->get();
         $congress_rooms = Congress_Rooms::with('room.id_hotel')->where('id_congress', $id)->get();
-
+        //dd($congress_rooms);
         $congress = Congress::findOrFail($id);
 
         $citta = \App\City::where('id', $congress->id_citta_sede_id)->first();
         $prov = \App\Province::where('id', $congress->id_prov_sede_id)->first();
 
         if (Auth::user()) {
+             $user_id = Auth::user()->id;
             if (Auth::user()->role_id == 6) {
-                $iscrizioni = \App\Registration::where('sponsor', $user_id)->where('id_congress_id', $id)->count();
+                $iscrizioni = \App\Registration::whereIn('id_congress_id', function($q) use ($user_id) {
+                        $q->select('id_congress_id')
+                                ->from('codes')
+                                ->where('sponsor', $user_id);
+                    })->where('id_congress_id', $id)->count();
 
                 foreach ($congress_rooms as $row) {
-                    $tot = $tot + $congress_rooms->room->prezzo;
+                    $tot = $tot + $row->room->prezzo;
                 }
 
                 return view('customer.congress.show', compact('tot', 'iscrizioni', 'congress_rooms', 'congress', 'congress_entries', 'congress_hotels', 'speakers_congresses', 'days', 'codes', 'registrations'));
@@ -338,6 +357,18 @@ class CongressesController extends Controller {
         }
 
         return view('customer.congress.show', compact('congress_rooms', 'congress', 'congress_entries', 'congress_hotels', 'speakers_congresses', 'days', 'codes', 'registrations'));
+    }
+    
+    public function Programma($id){
+        $user = Auth::user();
+        
+        $congress = Congress::find($id);
+        
+        $days = \App\Day::with('sala.evento')->where('id_congresso_id', $id)->get();
+        
+        //dd($days);
+        return view('customer.programma.programma', compact('days','congress'));
+        
     }
 
     /**

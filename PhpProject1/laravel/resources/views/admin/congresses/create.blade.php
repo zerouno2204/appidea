@@ -102,7 +102,7 @@
             </div>
         </div>
         <div class="mdl-grid">
-            <div class="mdl-cell mdl-cell--6-col-desktop">
+            <div class="mdl-cell mdl-cell--4-col-desktop">
                 {!! Form::label('ind_sede', trans('global.congress.fields.ind-sede').'', ['class' => 'control-label']) !!}
                 {!! Form::text('ind_sede', old('ind_sede'), ['class' => 'form-control', 'placeholder' => '']) !!}
                 <p class="help-block"></p>
@@ -112,7 +112,7 @@
                 </p>
                 @endif
             </div>  
-            <div class="mdl-cell mdl-cell--6-col-desktop">
+            <div class="mdl-cell mdl-cell--4-col-desktop">
                 {!! Form::label('cap_sede', trans('global.congress.fields.cap-sede').'', ['class' => 'control-label']) !!}
                 {!! Form::text('cap_sede', old('cap_sede'), ['class' => 'form-control', 'placeholder' => '']) !!}
                 <p class="help-block"></p>
@@ -121,6 +121,10 @@
                     {{ $errors->first('cap_sede') }}
                 </p>
                 @endif
+            </div>
+            <div class="mdl-cell mdl-cell--4-col-desktop">
+                <label class="control-label">Email Referente</label>
+                <input type="email" name="email_referente" value="{{old('email_referente')}}" class="form-control">
             </div>
         </div>
         <div class="mdl-grid">

@@ -1,265 +1,32 @@
 <?php
 
 return [
-	
-	'user-management' => [
-		'title' => 'Gestione Utenti',
-		'fields' => [
-		],
-	],
-	
-	'permissions' => [
-		'title' => 'Permessi',
-		'fields' => [
-			'title' => 'Titolo',
-		],
-	],
-	
-	'roles' => [
-		'title' => 'Ruoli',
-		'fields' => [
-			'title' => 'Titolo',
-			'permission' => 'Permessi',
-		],
-	],
-	
-	'users' => [
-		'title' => 'Utenti',
-		'fields' => [
-			'name' => 'Nome',
-			'email' => 'Email',
-			'password' => 'Password',
-			'role' => 'Ruolo',
-			'remember-token' => 'Token Ricordami',
-		],
-	],
-	
-	'cities' => [
-		'title' => 'Città',
-		'fields' => [
-			'name' => 'Nome',
-			'province' => 'Provincia',
-		],
-	],
-	
-	'codes' => [
-		'title' => 'Codici',
-		'fields' => [
-			'code' => 'Codice',
-			'qrcode' => 'Qrcode',
-			'id-congress' => 'Congresso',
-			'id-user' => 'Utente',
-                        'sponsor' => 'Sponsor',
-		],
-	],
-	
-	'congress' => [
-		'title' => 'Congress',
-		'fields' => [
-			'nome' => 'Nome',
-			'descrizione' => 'Descrizione',
-			'data-inizio' => 'Data inizio',
-			'data-fine' => 'Data fine',
-			'img' => 'Img',
-			'descr-sede' => 'Descrizione sede',
-			'ind-sede' => 'Indirizzo sede',
-			'lat' => 'Lat',
-			'lng' => 'Lng',
-			'cap-sede' => 'Cap sede',
-			'id-citta-sede' => 'Città sede',
-			'id-prov-sede' => 'Provincia sede',
-                        'pdf'=>'PDF'
-		],
-	],
-	
-	'congress-entries' => [
-		'title' => 'Iscrizioni Copngresso',
-		'fields' => [
-			'id-congress' => 'Congresso',
-			'id-entry' => 'Iscrizione',
-		],
-	],
-	
-	'congress-hotel' => [
-		'title' => 'Congresso Hotel',
-		'fields' => [
-			'id-congress' => 'Congresso',
-			'id-hotel' => 'Hotel',
-		],
-	],
-	
-	'document-type' => [
-		'title' => 'Tipo Documento',
-		'fields' => [
-			'nome' => 'Nome',
-			'slug' => 'Slug',
-		],
-	],
-	
-	'entry' => [
-		'title' => 'Iscrizioni',
-		'fields' => [
-			'nome' => 'Nome',
-			'data-inizio' => 'Data inizio',
-			'data-fine' => 'Data fine',
-			'prezzo' => 'Prezzo',
-			'ab-codice' => 'Codice di Abilitazione',
-			'descrizione' => 'Descrizione',
-		],
-	],
-	
-	'hotels' => [
-		'title' => 'Hotel',
-		'fields' => [
-			'nome' => 'Nome',
-			'lat' => 'Lat',
-			'lng' => 'Lng',
-			'indirizzo' => 'Indirizzo',
-			'cap' => 'Cap',
-			'citta' => 'Citta',
-			'provincia' => 'Provincia',
-			'descrizione' => 'Descrizione',
-		],
-	],
-	
-	'images' => [
-		'title' => 'Images',
-		'fields' => [
-			'nome' => 'Nome',
-			'path' => 'Percorso Immagine',
-		],
-	],
-	
-	'images-hotel' => [
-		'title' => 'Immagini Hotel',
-		'fields' => [
-			'img' => 'Immagine',
-			'hotel' => 'Hotel',
-		],
-	],
-	
-	'provinces' => [
-		'title' => 'Province',
-		'fields' => [
-			'nome' => 'Nome',
-			'slug' => 'Slug',
-		],
-	],
-	
-	'registrations' => [
-		'title' => 'Registrazioni',
-		'fields' => [
-			'nome-documento' => 'Nome documento',
-			'luogo-rilascio' => 'Luogo rilascio',
-			'data-emissione' => 'Data emissione',
-			'data-scadenza' => 'Data scadenza',
-			'id-tipo-doc' => 'Tipo Documento',
-			'path-img-doc' => 'Immagine Documento',
-			'note' => 'Note',
-			'registrationscol' => 'Registrationscol',
-			'id-entry' => 'Iscrizione',
-			'id-congress' => 'Congresso',
-			'id-speaker' => 'Relatore',
-			'id-hotel' => 'Hotel',
-			'id-user' => 'Utente',
-			'id-camera' => 'Camera',
-		],
-	],
-	
-	'rooms' => [
-		'title' => 'Camere',
-		'fields' => [
-			'descrizione' => 'Descrizione',
-			'prezzo' => 'Prezzo',
-			'p-letto' => 'Posti letto',
-			'id-hotel' => 'Hotel',
-		],
-	],
-	
-	'speakers' => [
-		'title' => 'Relatori',
-		'fields' => [
-			'nome' => 'Nome',
-			'cognome' => 'Cognome',
-			'img-path' => 'Immagina',
-			'contatti' => 'Contatti',
-			'ruolo' => 'Ruolo',
-			'descrizione' => 'Descrizione',
-			'curriculuum' => 'Curriculuum',
-		],
-	],
-	
-	'speakers-congress' => [
-		'title' => 'Speakers congress',
-		'fields' => [
-			'id-congress' => 'Congresso',
-			'id-speaker' => 'Relatore',
-		],
-	],
-	
-	'user-actions' => [
-		'title' => 'User actions',
-		'created_at' => 'Time',
-		'fields' => [
-			'user' => 'User',
-			'action' => 'Action',
-			'action-model' => 'Action model',
-			'action-id' => 'Action id',
-		],
-	],
-	
-	'faq-management' => [
-		'title' => 'FAQ Management',
-		'fields' => [
-		],
-	],
-	
-	'faq-categories' => [
-		'title' => 'Categories',
-		'fields' => [
-			'title' => 'Category',
-		],
-	],
-	
-	'faq-questions' => [
-		'title' => 'Questions',
-		'fields' => [
-			'category' => 'Category',
-			'question-text' => 'Question',
-			'answer-text' => 'Answer',
-		],
-	],
-	
-	'day' => [
-		'title' => 'Day',
-		'fields' => [
-			'nome' => 'Nome',
-			'descrizione' => 'Descrizione',
-			'id-congresso' => 'Congresso',
-			'data' => 'Data',
-		],
-	],
-	
-	'hall' => [
-		'title' => 'Sala',
-		'fields' => [
-			'nome' => 'Nome',
-			'descrizione' => 'Descrizione',
-			'capienza' => 'Capienza',
-			'planimetria' => 'Planimetria',
-			'id-giorno' => 'Giorno',
-		],
-	],
-	
-	'event' => [
-		'title' => 'Appuntamento',
-		'fields' => [
-			'intervallo-orario' => 'Intervallo orario',
-			'nome' => 'Nome',
-			'descrizione' => 'Descrizione',
-			'id-sala' => 'Sala',
-		],
-	],
+		'user-management' => [		'title' => 'User management',		'fields' => [		],	],
+		'permissions' => [		'title' => 'Permissions',		'fields' => [			'title' => 'Title',		],	],
+		'roles' => [		'title' => 'Roles',		'fields' => [			'title' => 'Title',			'permission' => 'Permissions',		],	],
+		'users' => [		'title' => 'Users',		'fields' => [			'name' => 'Name',			'email' => 'Email',			'password' => 'Password',			'role' => 'Role',			'remember-token' => 'Remember token',		],	],
+		'cities' => [		'title' => 'Città',		'fields' => [			'name' => 'Name',			'province' => 'Province',		],	],
+		'codes' => [		'title' => 'Codes',		'fields' => [			'code' => 'Code',			'qrcode' => 'Qrcode',			'id-congress' => 'Congresso',			'id-user' => 'Utente',		],	],
+		'congress' => [		'title' => 'Congress',		'fields' => [			'nome' => 'Nome',			'descrizione' => 'Descrizione',			'data-inizio' => 'Data inizio',			'data-fine' => 'Data fine',			'img' => 'Img',			'descr-sede' => 'Descr sede',			'ind-sede' => 'Ind sede',			'lat' => 'Lat',			'lng' => 'Lng',			'cap-sede' => 'Cap sede',			'id-citta-sede' => 'Città sede',			'id-prov-sede' => 'Provincia sede',		],	],
+		'congress-entries' => [		'title' => 'Congress entries',		'fields' => [			'id-congress' => 'Id congress',			'id-entry' => 'Id entry',		],	],
+		'congress-hotel' => [		'title' => 'Congress hotel',		'fields' => [			'id-congress' => 'Id congress',			'id-hotel' => 'Id hotel',		],	],
+		'document-type' => [		'title' => 'Document type',		'fields' => [			'nome' => 'Nome',			'slug' => 'Slug',		],	],
+		'entry' => [		'title' => 'Iscrizioni',		'fields' => [			'nome' => 'Nome',			'data-inizio' => 'Data inizio',			'data-fine' => 'Data fine',			'prezzo' => 'Prezzo',			'ab-codice' => 'Ab codice',			'descrizione' => 'Descrizione',		],	],
+		'hotels' => [		'title' => 'Hotel',		'fields' => [			'nome' => 'Nome',			'lat' => 'Lat',			'lng' => 'Lng',			'indirizzo' => 'Indirizzo',			'cap' => 'Cap',			'citta' => 'Citta',			'provincia' => 'Provincia',			'descrizione' => 'Descrizione',		],	],
+		'images' => [		'title' => 'Images',		'fields' => [			'nome' => 'Nome',			'path' => 'Path',		],	],
+		'images-hotel' => [		'title' => 'Images hotel',		'fields' => [			'img' => 'Img id',			'hotel' => 'Hotel id',		],	],
+		'provinces' => [		'title' => 'Provinces',		'fields' => [			'nome' => 'Nome',			'slug' => 'Slug',		],	],
+		'registrations' => [		'title' => 'Registrations',		'fields' => [			'nome-documento' => 'Nome documento',			'luogo-rilascio' => 'Luogo rilascio',			'data-emissione' => 'Data emissione',			'data-scadenza' => 'Data scadenza',			'id-tipo-doc' => 'Id tipo doc',			'path-img-doc' => 'Path img doc',			'note' => 'Note',			'registrationscol' => 'Registrationscol',			'id-entry' => 'Iscrizione',			'id-congress' => 'Congresso',			'id-speaker' => 'Relatore',			'id-hotel' => 'Hotel',			'id-user' => 'Utente',			'id-camera' => 'Camera',		],	],
+		'rooms' => [		'title' => 'Rooms',		'fields' => [			'descrizione' => 'Descrizione',			'prezzo' => 'Prezzo',			'p-letto' => 'P letto',			'id-hotel' => 'Hotel',		],	],
+		'speakers' => [		'title' => 'Speakers',		'fields' => [			'nome' => 'Nome',			'cognome' => 'Cognome',			'img-path' => 'Img path',			'contatti' => 'Contatti',			'ruolo' => 'Ruolo',			'descrizione' => 'Descrizione',			'curriculuum' => 'Curriculuum',		],	],
+		'speakers-congress' => [		'title' => 'Speakers congress',		'fields' => [			'id-congress' => 'Congresso',			'id-speaker' => 'Relatore',		],	],
+		'user-actions' => [		'title' => 'User actions',		'created_at' => 'Time',		'fields' => [			'user' => 'User',			'action' => 'Action',			'action-model' => 'Action model',			'action-id' => 'Action id',		],	],
+		'faq-management' => [		'title' => 'FAQ Management',		'fields' => [		],	],
+		'faq-categories' => [		'title' => 'Categories',		'fields' => [			'title' => 'Category',		],	],
+		'faq-questions' => [		'title' => 'Questions',		'fields' => [			'category' => 'Category',			'question-text' => 'Question',			'answer-text' => 'Answer',		],	],
+		'day' => [		'title' => 'Day',		'fields' => [			'nome' => 'Nome',			'descrizione' => 'Descrizione',			'id-congresso' => 'Congresso',			'data' => 'Data',		],	],
+		'hall' => [		'title' => 'Sala',		'fields' => [			'nome' => 'Nome',			'descrizione' => 'Descrizione',			'capienza' => 'Capienza',			'planimetria' => 'Planimetria',			'id-giorno' => 'Giorno',		],	],
+		'event' => [		'title' => 'Appuntamento',		'fields' => [			'intervallo-orario' => 'Intervallo orario',			'nome' => 'Nome',			'descrizione' => 'Descrizione',			'id-sala' => 'Sala',		],	],
 	'app_create' => 'Crea',
 	'app_save' => 'Salva',
 	'app_edit' => 'Modifca',

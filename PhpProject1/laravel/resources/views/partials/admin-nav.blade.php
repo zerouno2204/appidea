@@ -46,7 +46,12 @@
             </button>  
         </span>         
         @endcan
-
+         @can('speaker_access')
+            <a class="mdl-navigation__link mdl-color-text--grey-900" href="{{ route('admin.speakers.index') }}">
+                <i class="mdl-color-text--black material-icons">mic</i>
+                @lang('global.speakers.title')
+            </a>
+        @endcan
         @can('hotel_access')
         <span class="mdl-navigation__link mdl-color-text--grey-900" >
             <i class="mdl-color-text--black material-icons" role="presentation">hotel</i>@lang('global.hotels.title')
@@ -166,16 +171,7 @@
                 <span>@lang('global.congress.title')</span>
             </a>
         </li>
-        @endcan        
-        @can('speaker_access')
-        <li class="mdl-menu__item">
-            <a href="{{ route('admin.speakers.index') }}">
-                <i class="fa fa-tags"></i>
-                <span>@lang('global.speakers.title')</span>
-            </a>
-        </li>
-        @endcan
-
+        @endcan 
         @can('entry_access')
         <li class="mdl-menu__item">
             <a href="{{ route('admin.entries.index') }}">

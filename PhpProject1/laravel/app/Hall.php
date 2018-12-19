@@ -5,6 +5,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Spatie\MediaLibrary\HasMedia\HasMediaTrait;
 use Spatie\MediaLibrary\HasMedia\HasMedia;
+use App\Event;
 
 /**
  * Class Hall
@@ -42,6 +43,10 @@ class Hall extends Model implements HasMedia
     public function id_giorno()
     {
         return $this->belongsTo(Day::class, 'id_giorno_id')->withTrashed();
+    }
+    
+    public function evento(){
+        return $this->hasMany(Event::class, 'id_sala_id');
     }
     
 }

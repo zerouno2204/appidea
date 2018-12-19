@@ -82,6 +82,7 @@ Route::group(['middleware' => ['auth'], 'prefix' => 'admin', 'as' => 'admin.'], 
    
     /* Congress routes */
     Route::get('/customer-index-congress', 'Admin\CongressesController@customerIndex');
+    Route::get('/congress-program/{id}', 'Admin\CongressesController@Programma');
     
     /* Hotel routes */
     Route::get('/congress-hotels/{id}', 'Admin\HotelsController@hotelsCongress');

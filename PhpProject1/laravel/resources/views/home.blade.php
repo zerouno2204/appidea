@@ -9,7 +9,7 @@
             {{$item->nome}}
         </div>
         <div class="mdl-card__media">
-            <img src="{{$item->img}}" >
+            <img src="{{ asset('image/'.$item->img)}}" >
         </div>
         <div class="mdl-card__supporting-text">
             {!! $item->descrizione !!}
