@@ -15,12 +15,28 @@
             .mdl-card{
                 width: 100% !important;
             }
+            .mdl-card__title{
+                font-size: 16pt; 
+                max-height: 65px;
+                overflow: hidden;
+                height: 65px;
+            }
             .mdl-menu__outline.mdl-menu--bottom-right {
                 max-height: 300px;
             }
             ul.mdl-menu.mdl-menu--bottom-right.mdl-js-menu.mdl-js-ripple-effect.mdl-js-ripple-effect--ignore-events {
                 max-height: 300px !important;
                 overflow: auto;
+            }
+            .mdl-color--indigo-300 {
+                background-color: #706eb3 !important;
+            }
+            .mdl-color--purple-300 {
+                background-color: #b91c84 !important;
+            }
+            h1, h2 {
+                font-family: "Roboto","Helvetica","Arial",sans-serif !important;
+                font-weight: 300 !important;
             }
         </style>
     </head>

@@ -1,12 +1,12 @@
 @extends('layouts.app')
 
 @section('content')
-
-<div class="mdl-grid">
-    <h2>{{$congress->nome}}</h2>
-    <div class="mdl-cell mdl-cell--12-col-phone mdl-cell--8-col-desktop">
+<h2>{{$congress->nome}}</h2>
+<div class="mdl-grid" style="width: 100%">  
+    
+    <div class="mdl-cell mdl-cell--12-col-phone mdl-cell--8-col-desktop">        
         @if($congress->img)
-        <img src="{{ asset('image/'. $congress->img) }}" style="display: block; width: 100%;">
+        <img src="{{ asset($congress->img)}}" style="display: block; width: 100%;">
         @endif
         <div style="margin-bottom: 30px;"></div>
 
@@ -35,7 +35,7 @@
             </li>            
             @else
             <li class="list-group-item">
-                <a href="{{url('/admin/customer/registration/'.$congress->id)}}" class="mdl-button mdl-js-button mdl-button--primary" style="width: 100%; border: 1px solid;">Iscriviti</a>
+                <a href="{{url('/admin/customer/registration/'.$congress->id)}}" class="mdl-button mdl-js-button mdl-button--primary" style="width: 100%; border: 1px solid rgb(186, 104, 200); color: rgb(186, 104, 200);">Iscriviti</a>
             </li>
             <li class="list-group-item">
                 <div id="map"></div>

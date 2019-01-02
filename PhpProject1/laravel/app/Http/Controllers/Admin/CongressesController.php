@@ -128,7 +128,7 @@ class CongressesController extends Controller {
             }
         }
 
-        $relatori = $input['relatori[]'];
+        $relatori = $input['realtori[]'];
 
         foreach ($relatori as $relatore) {
             $relatoreCongress = new SpeakersCongress();

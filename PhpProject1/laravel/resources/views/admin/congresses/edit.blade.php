@@ -60,7 +60,7 @@
 
             <div class="mdl-cell mdl-cell--4-col-desktop">
                <label class="control-label">@lang('global.speakers-congress.fields.id-speaker')</label>
-                <select name='realtori[]' multiple class="form-control select2">
+                <select name='relatori[]' multiple class="form-control select2">
                    @if(isset($relatori))
                         @foreach($relatori as $row)
                             <option value="{{$row->id}}" @if(old('relatori[]') || $congress_relatori->contains('id_speaker_id', $row->id)  ) selected @endif >{{$row->nome}} {{$row->cognome}}</option>

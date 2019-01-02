@@ -5,11 +5,11 @@
 @foreach($congressi as $item)
 <div class="mdl-cell mdl-cell--4-col">
     <div class="mdl-card">
-        <div class="mdl-card__title">
+        <div class="mdl-card__title" style="max-width: 94%;">
             {{$item->nome}}
         </div>
         <div class="mdl-card__media">
-            <img src="{{ asset('image/'.$item->img)}}" >
+            <img src="{{ asset($item->img)}}" >
         </div>
         <div class="mdl-card__supporting-text">
             {!! $item->descrizione !!}

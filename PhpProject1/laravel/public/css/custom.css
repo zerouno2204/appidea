@@ -142,8 +142,8 @@ form .row {
 .btn.btn-primary, .btn-default {
        font-weight: 400!important;
        color: #fff!important;
-       background-color: #000851!important;
-       border-color: #000851!important;
+       background-color: rgb(186, 104, 200) !important;
+       border-color: rgb(186, 104, 200) !important;
        border-radius: 2px!important;
        padding: 8px 14px;
        font-size: 1.2em;

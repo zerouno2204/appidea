@@ -1,4 +1,4 @@
-<header class="demo-header mdl-layout__header mdl-color--red-800 mdl-color-text--grey-50 is-casting-shadow">
+<header class="demo-header mdl-layout__header mdl-color--indigo-300 mdl-color-text--grey-50 is-casting-shadow">
     <div role="button" tabindex="0" class="mdl-layout__drawer-button">
         <i class="material-icons"></i>
     </div>

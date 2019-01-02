@@ -1,18 +1,37 @@
-@extends('layouts.app')
+@extends('layouts.auth')
 
 @section('content')
-<div class="container">
-    <div class="row justify-content-center">
-        <div class="col-md-8">
-            <div class="card">
-                <div class="card-header">{{ __('Register') }}</div>
+<style>
+    .demo-card-wide.mdl-card {
+        width: 100%;
+    }
+    .demo-card-wide > .mdl-card__title {
+        color: #262626;
+        /*height: 176px;*/
+        background-color: #fff;
+    }
+    .demo-card-wide > .mdl-card__menu {
+        color: #fff;
+    }
 
-                <div class="card-body">
-                    <form method="POST" action="{{ route('register') }}">
+    .is-focused{
+        border-bottom-color: #ef5350;
+    }
+</style>
+
+<div class="mdl-cell mdl-cell--4-col"></div>
+<div class="mdl-cell mdl-cell--4-col">
+    <div class="demo-card-wide mdl-card">
+        <div class="mdl-card__title mdl-card--border">
+            {{ __('Registrati') }}
+        </div>
+            <div class="mdl-card__supporting-text ">
+                
+                    <form class="form-horizontal" role="form" method="POST" action="{{ url('/register') }}">
                         @csrf
 
                         <div class="form-group row">
-                            <label for="name" class="col-md-4 col-form-label text-md-right">{{ __('Name') }}</label>
+                            <label for="name" class="col-md-4 col-form-label text-md-right">{{ __('Nome') }}</label>
 
                             <div class="col-md-6">
                                 <input id="name" type="text" class="form-control{{ $errors->has('name') ? ' is-invalid' : '' }}" name="name" value="{{ old('name') }}" required autofocus>
@@ -26,7 +45,7 @@
                         </div>
 
                         <div class="form-group row">
-                            <label for="email" class="col-md-4 col-form-label text-md-right">{{ __('E-Mail Address') }}</label>
+                            <label for="email" class="col-md-4 col-form-label text-md-right">{{ __('Email') }}</label>
 
                             <div class="col-md-6">
                                 <input id="email" type="email" class="form-control{{ $errors->has('email') ? ' is-invalid' : '' }}" name="email" value="{{ old('email') }}" required>
@@ -54,7 +73,7 @@
                         </div>
 
                         <div class="form-group row">
-                            <label for="password-confirm" class="col-md-4 col-form-label text-md-right">{{ __('Confirm Password') }}</label>
+                            <label for="password-confirm" class="col-md-4 col-form-label text-md-right">{{ __('Conferma Password') }}</label>
 
                             <div class="col-md-6">
                                 <input id="password-confirm" type="password" class="form-control" name="password_confirmation" required>
@@ -63,15 +82,15 @@
 
                         <div class="form-group row mb-0">
                             <div class="col-md-6 offset-md-4">
-                                <button type="submit" class="btn btn-primary">
+                                <button type="submit" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent">
                                     {{ __('Register') }}
                                 </button>
                             </div>
                         </div>
                     </form>
-                </div>
+                
             </div>
-        </div>
     </div>
 </div>
+<div class="mdl-cell mdl-cell--4-col"></div>
 @endsection

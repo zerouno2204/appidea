@@ -16,6 +16,10 @@ use App\Code;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Mail;
 use App\Mail\SendEmail;
+use App\User;
+
+
+
 class RegistrationsController extends Controller {
 
     use FileUploadTrait;
@@ -134,12 +138,15 @@ class RegistrationsController extends Controller {
                 $registrationImage = new RegistrationImage();
                 $registrationImage->id_image = $img->id;
                 $registrationImage->id_registrazione = $registration->id;
-                $registrationImage->save();
+                //$registrationImage->save();
                 //dd($registrationImage);
             }
         }
         
+     
+        //$writer->writeFile( url('/registation/qrlink/').$registration->id, $registration->id.'-qrCode.png' );
         
+        $registration->qrcode = $registration->id.'-qrCode.png';
 
         if ($input['nome']) {
             $registration->nome = $input['nome'];
@@ -156,7 +163,8 @@ class RegistrationsController extends Controller {
             $codice->save();
         }
         
-        $registration->save();
+        //$registration->save();
+        
         
         
          $this->sendMail($registration->id);
@@ -177,11 +185,13 @@ class RegistrationsController extends Controller {
        $id_congress = $congress->id;
        $user_id =  Auth::user()->id;
        
+       
+       
        $azienda = User::whereIn('id', function ($q) use($id_congress, $user_id) {
            $q->select('sponsor')
                    ->from('codes')
                    ->where('id_congress_id', $id_congress)
-                   ->where('id_usr_id', $user_id);
+                   ->where('id_user_id', $user_id);
        })->first();
         
         $images = Image::whereIn('id', function ($q) use ($id){
@@ -192,14 +202,22 @@ class RegistrationsController extends Controller {
         
         $user = Auth::user();      
                
-        
+         if(!empty($azienda) && !empty($azienda->email)){
         Mail::to($user->email)
                 ->cc('info@flamingosoftware.it')
                 ->cc('c.centi@ideacpa.com')
                 ->cc('e.diana@ideacpa.com')
-                ->cc($congress->email_referente)
-                ->cc($azienda->email)
+                ->cc($congress->email_referente)               
+                ->cc($azienda->email)                
                 ->send( new SendEmail($registration));
+         }else{
+             Mail::to($user->email)
+                ->cc('info@flamingosoftware.it')
+                ->cc('c.centi@ideacpa.com')
+                ->cc('e.diana@ideacpa.com')
+                ->cc($congress->email_referente)      
+                ->send( new SendEmail($registration));
+         }
         
         
         //return new SendEmail($registration);
@@ -313,6 +331,18 @@ class RegistrationsController extends Controller {
         })->get();
 
         return view('customer.registration.show', compact('registration', 'images'));
+    }
+    
+    public function QrCodeShow($id) {
+        $registration = Registration::with('id_entry','id_congress','id_hotel','id_camera')->where('id',$id)->first();
+        $user = App\User::where('id', $registration->id_user_id)->first();
+        $images = Image::whereIn('id', function ($q) use ($id){
+            $q->select('id_image')
+                    ->from('images_registration')
+                    ->where('id_registrazione', $id);
+        })->get();
+
+        return view('customer.registration.qr_show', compact('registration', 'images', 'user'));
     }
     
      public function customerIndex() {

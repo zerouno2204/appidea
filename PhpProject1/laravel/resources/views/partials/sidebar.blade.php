@@ -1,16 +1,16 @@
 @inject('request', 'Illuminate\Http\Request')
 <!-- Left side column. contains the sidebar -->
-<div class="demo-drawer mdl-layout__drawer mdl-color--grey-600 mdl-color-text--grey-50">
+<div class="demo-drawer mdl-layout__drawer mdl-color--purple-300 mdl-color-text--grey-50">
     <header class="demo-drawer-header">
-        @if(Auth::user())
-        <img src="http://www.spazioeventicastiglione.com/wp-content/uploads/2018/11/icona_SPAZIO_EVENTI.png" class="demo-avatar">
+        
+        @if(Auth::user())        
+        <img src="{{asset('image/logo-idea-congress.png')}}" class="demo-avatar">
         <div class="demo-avatar-dropdown">
             <span>{{Auth::user()->name}} {{Auth::user()->surname}}</span>
             <div class="mdl-layout-spacer"></div>
-
         </div>
         @else
-        <img src="" class="demo-avatar">
+        <img src="{{asset('image/logo-idea-congress.png')}}" class="demo-avatar">
         <div class="demo-avatar-dropdown">
             <span>App Idea</span>
             <div class="mdl-layout-spacer"></div>

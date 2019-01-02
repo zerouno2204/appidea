@@ -6,6 +6,10 @@ $this->get('login', 'Auth\LoginController@showLoginForm')->name('login');
 $this->post('login', 'Auth\LoginController@login')->name('auth.login');
 $this->post('logout', 'Auth\LoginController@logout')->name('auth.logout');
 
+// Registration Routes..
+$this->get('register', 'Auth\RegisterController@showRegistrationForm')->name('auth.register');
+$this->post('register', 'Auth\RegisterController@register')->name('auth.register');
+
 // Change Password Routes...
 $this->get('change_password', 'Auth\ChangePasswordController@showChangePasswordForm')->name('auth.change_password');
 $this->patch('change_password', 'Auth\ChangePasswordController@changePassword')->name('auth.change_password');
@@ -79,6 +83,9 @@ Route::group(['middleware' => ['auth'], 'prefix' => 'admin', 'as' => 'admin.'], 
     Route::delete('events_perma_del/{id}', ['uses' => 'Admin\EventsController@perma_del', 'as' => 'events.perma_del']);
     Route::post('/spatie/media/upload', 'Admin\SpatieMediaController@create')->name('media.upload');
     Route::post('/spatie/media/remove', 'Admin\SpatieMediaController@destroy')->name('media.remove');
+    
+    //QR Code Route
+    Route::get('/registation/qrlink/{id}', 'Admin\RegistrationsController@QrCodeShow');
    
     /* Congress routes */
     Route::get('/customer-index-congress', 'Admin\CongressesController@customerIndex');
@@ -106,7 +113,7 @@ Route::group(['middleware' => ['auth'], 'prefix' => 'admin', 'as' => 'admin.'], 
     Route::get('messenger/outbox', 'Admin\MessengerController@outbox')->name('messenger.outbox');
     Route::resource('messenger', 'Admin\MessengerController');
 
-       /* AJAX Call */
+    /* AJAX Call */
     
     Route::post('/ajax-get-rooms', 'Admin\CongressesController@getRooms');
     Route::post('/ajax-registration-rooms', 'Admin\CongressesController@getCongressRooms');

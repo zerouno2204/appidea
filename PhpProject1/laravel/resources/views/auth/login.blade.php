@@ -63,25 +63,31 @@
                            name="password">
                 </div>
 
-                <div class="mdl-grid">
-                    <div class="mdl-cell mdl-cell--4-col">
-                        <a href="#" class="mdl-button mdl-js-button mdl-js-ripple-effect" onclick="goBack()">Annulla</a>
-                    </div>
-                    <div class="mdl-cell mdl-cell--4-col">
+                <div class="mdl-grid">                    
+                    <div class="mdl-cell mdl-cell--12-col">
+
                         <a href="{{ route('auth.password.reset') }}">@lang('global.app_forgot_password')</a>
-                    
+
                         <label>
                             <input type="checkbox"
                                    name="remember"> @lang('global.app_remember_me')
                         </label>
                     </div>
 
-                    <div class="mdl-cell mdl-cell--4-col">
-                        <button type="submit"
-                                class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent" >
-                            @lang('global.app_login')
-                        </button>
+                    <div class="mdl-cell mdl-cell--12-col mdl-grid">
+                         <div class="mdl-cell mdl-cell--8-col">
+                            <button type="submit"
+                                    class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent" >
+                                @lang('global.app_login')
+                            </button>
+                             <div class="row visible-sm"></div>
+                            <a class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent" href="{{ route('auth.register') }}" >@lang('global.app_registration')</a>
+                        </div>
+                        <div class="mdl-cell mdl-cell--4-col">
+                            <a href="{{htmlspecialchars($_SERVER['HTTP_REFERER'])}}" class="mdl-button mdl-js-button mdl-button--primary" style="border: 1px solid rgb(186, 104, 200); color: rgb(186, 104, 200);">INDIETRO</a>
+                        </div>                       
                     </div>
+
                 </div>
             </form>
         </div>
@@ -89,9 +95,9 @@
     </div>
 </div>
 <div class="mdl-cell mdl-cell--4-col"></div>
-<script>
-function goBack() {
-    window.history.back();
-}
+<script type="text/javascript">
+    function goBack() {
+        window.history.back();
+    }
 </script>
 @endsection

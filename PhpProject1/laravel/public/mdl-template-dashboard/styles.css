@@ -14,8 +14,11 @@
  * limitations under the License.
  */
 
+a{
+    color: #706eb3;
+}
 html, body {
-    font-family: 'Roboto', 'Helvetica', sans-serif;
+    font-family: 'Roboto', 'Helvetica', sans-serif !important;
 }
 .demo-avatar {
     width: 48px;
@@ -226,6 +229,129 @@ _:-ms-input-placeholder, :root .demo-graph {
 
 /*--- Inserted by Matteo ---*/
 
+/*----------- calendario ------------*/
+.fc-today-button, .fc-month-button, .fc-agendaWeek-button, .fc-agendaDay-button {
+    font-size: 14px!important;
+    line-height: 20px;
+    opacity: .7!important;
+    color: #000!important;
+    border: none!important;
+    background-color: #eee!important;
+    text-shadow: none!important;
+    text-transform: uppercase;
+    font-weight: 500;
+    background-image: none!important;
+    height: 2.6em!important;
+}
+.fc-prev-button{
+    margin-right:10px!important;
+}
+.fc-prev-button, .fc-next-button {
+    border: 1px solid transparent!important;
+    border-radius: 50% 50% 50% 50%!important;
+    background-color: transparent!important;
+    background-image: none!important;
+    background-repeat: no-repeat!important;
+    color: #212121!important;
+    text-shadow: none!important;
+    box-shadow: none!important;
+    padding: 0 4px!important;
+}
+.fc-prev-button:hover, .fc-prev-button:focus, .fc-prev-button:active, .fc-next-button:hover, .fc-next-button:focus, .fc-next-button:active{
+    background-color: #eee!important;
+    border: 1px solid transparent!important;
+    border-radius: 50% 50% 50% 50%!important;
+    padding: 0 4px!important;
+}
+#calendar {
+    margin-top: 0;
+}
+.fc-left h2 {
+    font-size:25px;
+    color: #565656;
+}
+.fc-day-header {
+    text-align: left!important;
+}
+.fc-day-header span {
+    font-size: 16px!important;
+    color:#757575;
+    font-weight: normal!important;
+    padding: 8px;
+}
+.fc-ltr .fc-basic-view .fc-day-top .fc-day-number {
+    float: left!important;
+    font-weight: 400;
+}
+.fc-unthemed td.fc-today{
+    background-color: #f5f5f5!important;
+}
+.fc-today .fc-day-number {
+    color: #fff!important;
+    background-color: #b91c84;
+    border: 1px solid transparent;
+    border-radius: 50%!important;
+    padding: 0 3px!important;
+}
+.fc-day-number {
+    margin: 8px;
+}
+.fc-widget-header {
+    background: #fff;
+}
+.fc-month-view table .fc-head{
+    border-bottom: none!important;
+    border-bottom-color: transparent!important;
+}
+.fc-month-view table .fc-head tr .fc-head-container{
+    border-bottom: none!important;
+    border-bottom-color: transparent!important;
+}
+.fc-month-view table .fc-head tr .fc-head-container .fc-row{
+    border-bottom: none!important;
+    border-bottom-color: transparent!important;
+}
+.fc-month-view table .fc-head tr .fc-head-container .fc-row table thead{
+    border-bottom: none!important;
+    border-bottom-color: transparent!important;
+}
+.fc-view.fc-month-view.fc-basic-view table .fc-head tr{
+    border-bottom: none!important;
+    border-bottom-color: transparent!important;
+}
+.fc-view.fc-month-view.fc-basic-view table .fc-head tr .fc-day-header{
+    border-bottom: none!important;
+    border-bottom-color: transparent!important;
+}
+.fc-month-view table .fc-body{
+    border-top: none!important;
+    border-top-color: transparent!important;
+}
+.fc-month-view table .fc-body tr .fc-widget-content{
+    border-top: none!important;
+    border-top-color: transparent!important;
+}
+.fc-week .fc-bg{
+    border-bottom: 1px solid #ddd!important;
+}
+.fc-toolbar .fc-right {
+    float: left!important;
+    margin-left: 40px!important;
+}
+.fc-right .fc-button-group{
+    margin-left: 40px!important;
+}
+.fc-event {
+    font-size: 14px!important;
+    line-height: 24px!important;
+    border: 1px solid #59005d!important;
+    background-color: #59005d!important;
+}
+.fc-event:hover, .fc-event:focus, .fc-event:active{
+    border: 1px solid #8a038b!important;
+    background-color: #8a038b!important;
+}
+
 .mdl-navigation__link a .material-icons {
     vertical-align: middle;
 }
@@ -260,6 +386,9 @@ _:-ms-input-placeholder, :root .demo-graph {
   max-width: 100%;
 }
 
+.list-group-item{
+    border: 1px solid #706eb3;
+}
 /* Responsive layout - makes a two column-layout instead of four columns */
 @media screen and (max-width: 800px) {
   .column {
